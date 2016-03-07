@@ -11,7 +11,7 @@ import java.util.List;
 
 import org.springframework.util.StringUtils;
 
-import digital.places.util.AppUtils;
+import digital.places.root.AppUtils;
 
 public class SearchUser
 {

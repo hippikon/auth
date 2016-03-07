@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Calendar;
 
-import digital.places.util.AppUtils;
+import digital.places.root.AppUtils;
 
 public class UserRole
 {

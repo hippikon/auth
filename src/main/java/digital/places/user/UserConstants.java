@@ -6,10 +6,10 @@ import java.util.Map;
 public class UserConstants
 {
     static final String ADDPAGE = "add";
-    static final String ADDPAGEURL = "/user/add";
+    static final String ADDPAGEURL = "/add";
 
     static final String VIEWALLPAGE = "viewall";
-    static final String VIEWALLPAGEURL = "/user/viewall";
+    static final String VIEWALLPAGEURL = "/viewall";
     
 
     public static final Map<String,String> UDD = new HashMap<String,String>();

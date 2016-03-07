@@ -12,15 +12,16 @@ import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.web.servlet.FrameworkServlet;
 
-import digital.places.util.AppUtils;
+import digital.places.root.AppContextJavaProvider;
+import digital.places.root.AppUtils;
 
 @Entity
 @Table (name="users")
@@ -31,6 +32,9 @@ public class User implements Serializable
      */
     private static final long serialVersionUID = 1L;
 
+    @Transient
+    private UserProps userProps;
+    
     @Id
     @Column (columnDefinition = "VARCHAR",length = 20)
     private String username;
@@ -399,4 +403,49 @@ public class User implements Serializable
     public static final Map<String,String> UDD = UserConstants.UDD;
     public static final Map<String,String> UMM = UserConstants.UMM;
     public static final Map<String,String> UYYYY = UserConstants.UYYYY;
+
+//    public User findThisOne(String username) {
+//	if (userProps == null)
+//	{
+//	    userProps = new UserProps();
+//	}
+//	 
+//        return userProps.entityManager.find(User.class, username);
+//    }
+
+//    @SuppressWarnings("unchecked")
+//    public List<User> findAllUsers() {
+//        return entityManager.createQuery("from " + User.class.getName()).getResultList();
+//    }
+//
+    void addToDatastore() {
+
+	setUdob(AppUtils.parseDate(this.udobdd,this.udobmm,this.udobyyyy,DEFAULT_INPUT_DATE_FORMAT));
+	setUstartdate(AppUtils.parseDate(this.ustartdatedd,this.ustartdatemm,this.ustartdateyyyy,DEFAULT_INPUT_DATE_FORMAT));
+	if (!StringUtils.isEmpty(this.uenddatedd))
+	{
+	    try
+	    {
+		setUenddate(AppUtils.parseDate(this.uenddatedd,this.uenddatemm,this.uenddateyyyy,DEFAULT_INPUT_DATE_FORMAT));
+	    }
+	    catch (Exception e)
+	    {
+		e.printStackTrace();
+	    }
+	}
+	if (userProps == null)
+	{
+	    userProps = (UserProps) ServletContextJavaProvider.getServletContext().getAttribute("userProps");
+	}
+	userProps.create(this);
+    }
+    
+//    public User updateMe() {
+//        return entityManager.merge(User.class);
+//    }
+//
+//    public void deleteMe() {
+//	entityManager.remove(this);
+//    }
+    
 }

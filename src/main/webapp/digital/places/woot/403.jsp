@@ -2,6 +2,7 @@
 <html>
 <head><title>Auth - 403 Access Denied</title></head>
 <body>
+	<jsp:include page="../home.jsp" />
 	<h1>HTTP Status 403 - Access is denied</h1>
 
 	<c:choose>

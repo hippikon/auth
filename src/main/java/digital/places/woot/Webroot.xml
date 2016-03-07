@@ -9,11 +9,11 @@
 		http://www.springframework.org/schema/beans lib/xsd/spring-beans-4.2.xsd
 		http://www.springframework.org/schema/context lib/xsd/spring-context-4.2.xsd">
 
-	<context:component-scan base-package="digital.places.user" />
+	<context:component-scan base-package="digital.places.woot" />
 	
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
-		<property name="prefix" value="/digital/places/user/" />
+		<property name="prefix" value="/digital/places/woot/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
@@ -22,9 +22,8 @@
 
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename">
-			<value>digital\places\user\Messages</value>
+			<value>digital\places\woot\Messages</value>
 		</property>
 	</bean>
 
-   	<bean id="props" class="digital.places.root.AppProps" />
 </beans>
