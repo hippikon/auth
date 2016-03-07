@@ -1,6 +1,6 @@
 package digital.places.user;
 
-import java.io.Serializable;
+ import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -17,10 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.springframework.util.StringUtils;
-import org.springframework.web.context.support.WebApplicationContextUtils;
-import org.springframework.web.servlet.FrameworkServlet;
 
-import digital.places.root.AppContextJavaProvider;
 import digital.places.root.AppUtils;
 
 @Entity
@@ -435,7 +432,7 @@ public class User implements Serializable
 	}
 	if (userProps == null)
 	{
-	    userProps = (UserProps) ServletContextJavaProvider.getServletContext().getAttribute("userProps");
+//	    userProps = (UserProps) ServletContextJavaProvider.getServletContext().getAttribute("userProps");
 	}
 	userProps.create(this);
     }
