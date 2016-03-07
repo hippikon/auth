@@ -432,7 +432,7 @@ public class User implements Serializable
 	}
 	if (userProps == null)
 	{
-//	    userProps = (UserProps) ServletContextJavaProvider.getServletContext().getAttribute("userProps");
+	    userProps = (UserProps) ServletContextJavaProvider.getServletContext().getAttribute("userProps");
 	}
 	userProps.create(this);
     }
