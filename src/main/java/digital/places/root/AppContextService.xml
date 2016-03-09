@@ -79,8 +79,8 @@
       <property name="entityManagerFactory" ref="entityManagerFactoryBean" />
    </bean>
     
-   	<bean id="props" class="digital.places.root.PersistenceProps" />
-   	<bean id="serviceProps" class="digital.places.root.ServiceProps" />
+   	<bean id="dataStore" class="digital.places.root.DataStore" />
+   	<bean id="dataService" class="digital.places.root.DataService" />
    	
   <!--    <bean id="persistenceExceptionTranslationPostProcessor"
       class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" /> --> 

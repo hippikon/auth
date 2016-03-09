@@ -1,4 +1,4 @@
-package digital.places.userrole;
+package digital.places.role;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,7 @@ import java.util.Calendar;
 
 import digital.places.root.AppUtils;
 
-public class UserRole
+public class Role
 {
     private String username;
 

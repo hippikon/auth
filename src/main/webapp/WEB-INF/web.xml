@@ -42,18 +42,18 @@
         <url-pattern>/user/*</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>userroleservice</servlet-name>
+        <servlet-name>roleservice</servlet-name>
         <servlet-class>
             org.springframework.web.servlet.DispatcherServlet
 		</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:/digital/places/userrole/UserRoleService.xml</param-value>
+			<param-value>classpath:/digital/places/role/RoleService.xml</param-value>
 		</init-param>
         <load-on-startup>3</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>userroleservice</servlet-name>
+        <servlet-name>roleservice</servlet-name>
         <url-pattern>/role/*</url-pattern>
     </servlet-mapping>
     <listener>

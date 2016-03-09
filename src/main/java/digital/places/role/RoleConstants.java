@@ -1,6 +1,6 @@
-package digital.places.userrole;
+package digital.places.role;
 
-public class UserRoleConstants
+public class RoleConstants
 {
     static final String ADDPAGE = "add";
     static final String ADDPAGEURL = "/add";

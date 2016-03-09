@@ -16,7 +16,7 @@ import org.springframework.util.StringUtils;
 
 import digital.places.root.AppContextJavaProvider;
 import digital.places.root.AppUtils;
-import digital.places.root.ServiceProps;
+import digital.places.root.DataService;
 
 @Entity
 @Table (name="users")
@@ -50,7 +50,7 @@ public class User implements Serializable
     public static final LinkedHashMap<String,String> UDOBY = UserConstants.UDOBY;
     
     @Transient
-    private ServiceProps userProps;
+    private DataService dataService;
     
     @Id
     @Column (columnDefinition = "VARCHAR",length = 20)
@@ -383,11 +383,11 @@ public class User implements Serializable
 		    	e.printStackTrace();
 		    }
 		}
-		if (userProps == null)
+		if (dataService == null)
 		{
-		    userProps = (ServiceProps) AppContextJavaProvider.getApplicationContext().getBean("serviceProps");
+			dataService = (DataService) AppContextJavaProvider.getApplicationContext().getBean("dataService");
 		}
-		userProps.create(this);
+		dataService.create(this);
     }
     
 //    public User updateMe() {

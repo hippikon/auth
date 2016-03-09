@@ -9,11 +9,11 @@
 		http://www.springframework.org/schema/beans lib/xsd/spring-beans-4.2.xsd
 		http://www.springframework.org/schema/context lib/xsd/spring-context-4.2.xsd">
 
-	<context:component-scan base-package="digital.places.userrole" />
+	<context:component-scan base-package="digital.places.role" />
 	
     <bean id="viewResolverRole" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
-		<property name="prefix" value="/digital/places/userrole/" />
+		<property name="prefix" value="/digital/places/role/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
@@ -22,7 +22,7 @@
 
 	<bean id="messageSourceRole" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename">
-			<value>digital\places\userrole\Messages</value>
+			<value>digital\places\role\Messages</value>
 		</property>
 	</bean>
 

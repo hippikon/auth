@@ -1,12 +1,10 @@
-package digital.places.userrole;
+package digital.places.role;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,19 +13,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 // Its a servlet
 @Controller
-public class UserRoleRestService
+public class RoleRestService
 {
     private static Integer userNum = new Integer(0);
-    private static Map<Integer, UserRole> roleMap;
+    private static Map<Integer, Role> roleMap;
 
-    @RequestMapping(value = UserRoleConstants.ADDPAGEURL, method = RequestMethod.POST)
+    @RequestMapping(value = RoleConstants.ADDPAGEURL, method = RequestMethod.POST)
     public String associateUsersWithRole(@ModelAttribute("username") String userName)
     {
 	if (StringUtils.isEmpty(userName))
 	{
 	    return "redirect:/user/search";
 	}
-	return "redirect:"+UserRoleConstants.ADDPAGEURL;
+	return "redirect:"+RoleConstants.ADDPAGEURL;
     }
 
     @InitBinder

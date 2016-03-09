@@ -8,21 +8,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class ServiceProps
+public class DataService
 {
-    PersistenceProps props;
+    DataStore dataStore;
 
     @Autowired
 	ServletContext servletContext;
     
     @Autowired
-    public void setProps(PersistenceProps props)
+    public void setDataStore(DataStore dataStore)
     {
-        this.props = props;
+        this.dataStore = dataStore;
     }
 
     public void create(final Object obj)
     {
-    	props.getEntityManager().persist(obj);
+    	dataStore.getEntityManager().persist(obj);
     }
 }
