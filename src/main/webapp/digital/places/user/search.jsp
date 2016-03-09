@@ -7,8 +7,9 @@
 <%@ page import="java.util.HashMap" %>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Auth - Search User</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Auth - Search User</title>
+	<link href='<c:url value="/lib/main.css" />' rel="stylesheet"/>
 </head>
 <body>
 	<jsp:include page="../home.jsp" />

@@ -25,4 +25,6 @@
 			<value>digital\places\user\Messages</value>
 		</property>
 	</bean>
+
+    <mvc:resources mapping="/lib/**" location="../lib/" cache-period="31556926"/>
 </beans>

@@ -22,15 +22,6 @@
 		<property name="jndiName" value="java:comp/env/jdbc/userie"/>
 	</bean>
 
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
-		<property name="prefix" value="/digital/places/root/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
-	
-	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
-	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" />
-
 	<bean id="appContextJavaProvider"
     	class="digital.places.root.AppContextJavaProvider"/>
                         
