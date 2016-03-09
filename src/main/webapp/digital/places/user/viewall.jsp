@@ -11,15 +11,21 @@
 </head>
 <body>
 	<jsp:include page="../home.jsp" />
-	User Names Added so far : <br/>
-	<sql:query var="rs" dataSource="jdbc/userie">
-	select username from users
-	</sql:query>
-	
-	<c:forEach var="row" items="${rs.rows}">
-	    ${row.username}<br/>
-	</c:forEach>
-	
-	<a href="/auth/user/add">Return to add user</a>
+	<table border="1" cellpadding="15" width="30%" align="center">
+	<tr>
+	<td>
+		User Names Added so far : <br/>
+		<sql:query var="rs" dataSource="jdbc/userie">
+		select username from users
+		</sql:query>
+		
+		<c:forEach var="row" items="${rs.rows}">
+		    ${row.username}<br/>
+		</c:forEach>
+		
+		<a href="/auth/user/add">Return to add user</a>
+	</td>
+	</tr>
+	</table>	
 </body>
 </html>

@@ -25,6 +25,4 @@
 			<value>digital\places\user\Messages</value>
 		</property>
 	</bean>
-
-   	<bean id="props" class="digital.places.root.AppProps" />
 </beans>

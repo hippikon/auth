@@ -21,6 +21,15 @@
 		}
 	</script>
 
-
-<h5><a href="<%= home %>">Home</a></h5>
-<h5 align="right"><a href="javascript:formSubmit()">Logout</a></h5>
+	<table width="100%" cellspacing="2" cellpadding="2">
+		<tr>
+			<td width="5%">&nbsp;</td>
+			<td>
+				<h4><a href="<%= home %>">Home</a></h4>
+			</td>
+			<td>
+				<h4 align="right"><a href="javascript:formSubmit()">Logout</a></h4>
+			</td>
+			<td width="5%">&nbsp;</td>
+		</tr>
+	</table>

@@ -6,7 +6,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class AppProps
+public class PersistenceProps
 {
     @PersistenceContext
     private EntityManager entityManager;

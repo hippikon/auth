@@ -25,7 +25,7 @@
 		</form:select>/<form:select path="udobmm">
 		    <form:options items="${user.UMM}" />
 		</form:select>/<form:select path="udobyyyy">
-		    <form:options items="${user.UYYYY}" />
+		    <form:options items="${user.UDOBY}" />
 		</form:select>  
 		<form:errors path="udobdd" cssStyle="color:red;"/><br/>
 		Start Date* : <form:select path="ustartdatedd">

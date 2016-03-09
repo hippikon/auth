@@ -3,7 +3,6 @@ package digital.places.user;
 import java.sql.SQLException;
 import java.text.ParseException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +20,6 @@ import digital.places.root.AppConstants;
 @Controller
 public class UserRestService
 {
-    
     @RequestMapping(value = UserConstants.ADDPAGEURL, method = RequestMethod.GET)
     public String viewaddpage(Model model)
     {

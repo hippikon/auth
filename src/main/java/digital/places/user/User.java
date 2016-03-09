@@ -1,13 +1,9 @@
 package digital.places.user;
 
  import java.io.Serializable;
-import java.sql.Connection;
 import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.Calendar;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.persistence.Column;
@@ -18,7 +14,9 @@ import javax.persistence.Transient;
 
 import org.springframework.util.StringUtils;
 
+import digital.places.root.AppContextJavaProvider;
 import digital.places.root.AppUtils;
+import digital.places.root.ServiceProps;
 
 @Entity
 @Table (name="users")
@@ -29,8 +27,30 @@ public class User implements Serializable
      */
     private static final long serialVersionUID = 1L;
 
+    public static final Map<String,String> ULOCATIONS = new HashMap<String,String>();
+    static
+    {
+	ULOCATIONS.put("1","ROLLING MEADOWS, IL");
+	ULOCATIONS.put("2","WILMINGTON, DE");
+	ULOCATIONS.put("3","RICHMOND, VA");
+    }
+
+    public static final Map<Integer,String> ENABLEDS = new HashMap<Integer,String>();
+    static
+    {
+	ENABLEDS.put(1,"ENABLED");
+	ENABLEDS.put(0,"DISABLED");
+    }
+
+    public static final String DEFAULT_INPUT_DATE_FORMAT = "MM/dd/yyyy";
+    
+    public static final LinkedHashMap<String,String> UDD = UserConstants.UDD;
+    public static final LinkedHashMap<String,String> UMM = UserConstants.UMM;
+    public static final LinkedHashMap<String,String> UYYYY = UserConstants.UYYYY;
+    public static final LinkedHashMap<String,String> UDOBY = UserConstants.UDOBY;
+    
     @Transient
-    private UserProps userProps;
+    private ServiceProps userProps;
     
     @Id
     @Column (columnDefinition = "VARCHAR",length = 20)
@@ -93,57 +113,6 @@ public class User implements Serializable
     @Column(columnDefinition = "ENUM('ROLLING MEADOWS, IL','WILMINGTON, DE','RICHMOND, VA')")
     private String ulocation = ULOCATIONS.get("1");
     
-    public synchronized void addUser() throws SQLException, ParseException
-    {
-	setUdob(AppUtils.parseDate(this.udobdd,this.udobmm,this.udobyyyy,DEFAULT_INPUT_DATE_FORMAT));
-	setUstartdate(AppUtils.parseDate(this.ustartdatedd,this.ustartdatemm,this.ustartdateyyyy,DEFAULT_INPUT_DATE_FORMAT));
-	if (this.username != null && !"".equals(this.username))
-	{
-	    //TODOExternalize
-	    String sql = "insert into users (username,ufname,ulname,umname,udob,ustartdate,uenddate,enabled,uemail,password,ulocation) values (?,?,?,?,?,?,?,?,?,?,?)"; 
-	    Connection conn = null; 
-	    Calendar c = Calendar.getInstance();
-	    try 
-	    { 
-		conn = AppUtils.dataSource.getConnection(); 
-		PreparedStatement ps = conn.prepareStatement( sql);
-		ps.setString ( 1, this.username);
-		ps.setString ( 2, this.ufname);
-		ps.setString ( 3, this.ulname);
-		ps.setString ( 4, this.umname);
-		ps.setDate ( 5, getUdob());
-		ps.setDate ( 6, getUstartdate());
-		if (!StringUtils.isEmpty(this.uenddatedd))
-		{
-		    try
-		    {
-			setUenddate(AppUtils.parseDate(this.uenddatedd,this.uenddatemm,this.uenddateyyyy,DEFAULT_INPUT_DATE_FORMAT));
-		    }
-		    catch (Exception e)
-		    {
-			e.printStackTrace();
-		    }
-		}
-		ps.setDate ( 7, getUenddate());
-		ps.setInt( 8, this.enabled);
-		ps.setString ( 9, this.uemail);
-		ps.setString ( 10, this.password);
-		ps.setString ( 11, this.ulocation);
-		ps.executeUpdate(); 
-		ps.close();     	    
-	    } 
-	    finally 	
-	    { 
-		if (conn != null) 
-		{ 
-		    conn.close(); 
-		} 
-	    }
-	}
-    }
-
-    
-
     public String getUsername()
     {
         return username;
@@ -345,6 +314,11 @@ public class User implements Serializable
         return UYYYY;
     }
 
+    public Map<String, String> getUDOBY()
+    {
+        return UDOBY;
+    }
+
     public Date getUdob()
     {
         return udob;
@@ -380,27 +354,6 @@ public class User implements Serializable
         this.uenddate = uenddate;
     }
 
-    public static final Map<String,String> ULOCATIONS = new HashMap<String,String>();
-    static
-    {
-	ULOCATIONS.put("1","ROLLING MEADOWS, IL");
-	ULOCATIONS.put("2","WILMINGTON, DE");
-	ULOCATIONS.put("3","RICHMOND, VA");
-    }
-
-    public static final Map<Integer,String> ENABLEDS = new HashMap<Integer,String>();
-    static
-    {
-	ENABLEDS.put(1,"ENABLED");
-	ENABLEDS.put(0,"DISABLED");
-    }
-
-    public static final String DEFAULT_INPUT_DATE_FORMAT = "MM/dd/yyyy";
-    
-    public static final Map<String,String> UDD = UserConstants.UDD;
-    public static final Map<String,String> UMM = UserConstants.UMM;
-    public static final Map<String,String> UYYYY = UserConstants.UYYYY;
-
 //    public User findThisOne(String username) {
 //	if (userProps == null)
 //	{
@@ -415,26 +368,26 @@ public class User implements Serializable
 //        return entityManager.createQuery("from " + User.class.getName()).getResultList();
 //    }
 //
-    void addToDatastore() {
-
-	setUdob(AppUtils.parseDate(this.udobdd,this.udobmm,this.udobyyyy,DEFAULT_INPUT_DATE_FORMAT));
-	setUstartdate(AppUtils.parseDate(this.ustartdatedd,this.ustartdatemm,this.ustartdateyyyy,DEFAULT_INPUT_DATE_FORMAT));
-	if (!StringUtils.isEmpty(this.uenddatedd))
-	{
-	    try
-	    {
-		setUenddate(AppUtils.parseDate(this.uenddatedd,this.uenddatemm,this.uenddateyyyy,DEFAULT_INPUT_DATE_FORMAT));
-	    }
-	    catch (Exception e)
-	    {
-		e.printStackTrace();
-	    }
-	}
-	if (userProps == null)
-	{
-	    userProps = (UserProps) ServletContextJavaProvider.getServletContext().getAttribute("userProps");
-	}
-	userProps.create(this);
+	    void addToDatastore() {
+	
+		setUdob(AppUtils.parseDate(this.udobdd,this.udobmm,this.udobyyyy,DEFAULT_INPUT_DATE_FORMAT));
+		setUstartdate(AppUtils.parseDate(this.ustartdatedd,this.ustartdatemm,this.ustartdateyyyy,DEFAULT_INPUT_DATE_FORMAT));
+		if (!StringUtils.isEmpty(this.uenddatedd))
+		{
+		    try
+		    {
+		    	setUenddate(AppUtils.parseDate(this.uenddatedd,this.uenddatemm,this.uenddateyyyy,DEFAULT_INPUT_DATE_FORMAT));
+		    }
+		    catch (Exception e)
+		    {
+		    	e.printStackTrace();
+		    }
+		}
+		if (userProps == null)
+		{
+		    userProps = (ServiceProps) AppContextJavaProvider.getApplicationContext().getBean("serviceProps");
+		}
+		userProps.create(this);
     }
     
 //    public User updateMe() {

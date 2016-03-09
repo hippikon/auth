@@ -17,7 +17,7 @@ import digital.places.user.UserConstants;
 
 // Its a servlet
 @Controller
-public class WebRestRoot
+public class LoginRestService
 {
     @RequestMapping(value = AppConstants.LOGINPAGEURL, method = RequestMethod.GET)
     public ModelAndView login1(@RequestParam(value = "error", required = false) String error,

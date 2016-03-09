@@ -6,8 +6,8 @@
 <title>Auth - Sitemap</title>
 </head>
 <body>
-	<h1 align="center">Sitemap</h1>
-	<table width="80%" align="center" border="1">
+	<h3 align="center">Sitemap</h3>
+	<table width="50%" align="center" border="1">
 		<tr>
 			<td align="center" >
 				Add user
