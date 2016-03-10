@@ -2,6 +2,7 @@ package digital.places.user;
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.List;
 
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
@@ -49,25 +50,24 @@ public class UserRestService
     }
 
     @RequestMapping(value = AppConstants.SEARCHPAGEURL, method = RequestMethod.GET)
-    public String load(Model model) throws SQLException, ParseException
+    public String load() throws SQLException, ParseException
     {
-	SearchUser searchUser = new SearchUser("");
-	model.addAttribute("searchUser",searchUser);
-	return AppConstants.SEARCHPAGE;
+    	return AppConstants.SEARCHPAGE;
     }
     
     @RequestMapping(value = AppConstants.SEARCHPAGEURL, method = RequestMethod.POST)
-    public String search(@RequestParam(value = "searchString") String searchString, Model model) throws SQLException, ParseException
+    public String search(@RequestParam(value = "username") String username, Model model) throws SQLException, ParseException
     {
-	SearchUser searchUser = new SearchUser(searchString);
-	model.addAttribute("searchUser",searchUser);
-	return AppConstants.SEARCHPAGE;
+    	User user = new User();
+    	List<User> searchResults = user.findByUsername(username);
+    	model.addAttribute("searchUser",searchResults);
+    	return AppConstants.SEARCHPAGE;
     }
 
     @RequestMapping(value = UserConstants.VIEWALLPAGEURL, method = RequestMethod.GET)
     public String viewall(Model model)
     {
-	return UserConstants.VIEWALLPAGE;
+    	return UserConstants.VIEWALLPAGE;
     }
 
     @InitBinder

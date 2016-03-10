@@ -11,7 +11,7 @@ public class AppConstants
     public static final String LOGINPAGE = "login";
     public static final String LOGINPAGEURL = "/login";
 
-    public static final String SEARCHPAGEURL ="/user/search";
+    public static final String SEARCHPAGEURL ="/search";
     public static final String SEARCHPAGE ="search";
 
 

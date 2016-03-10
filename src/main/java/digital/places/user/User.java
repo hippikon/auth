@@ -4,6 +4,7 @@ package digital.places.user;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Column;
@@ -48,9 +49,6 @@ public class User implements Serializable
     public static final LinkedHashMap<String,String> UMM = UserConstants.UMM;
     public static final LinkedHashMap<String,String> UYYYY = UserConstants.UYYYY;
     public static final LinkedHashMap<String,String> UDOBY = UserConstants.UDOBY;
-    
-    @Transient
-    private DataService dataService;
     
     @Id
     @Column (columnDefinition = "VARCHAR",length = 20)
@@ -113,6 +111,60 @@ public class User implements Serializable
     @Column(columnDefinition = "ENUM('ROLLING MEADOWS, IL','WILMINGTON, DE','RICHMOND, VA')")
     private String ulocation = ULOCATIONS.get("1");
     
+    private DataService getDataService()
+    {
+		return (DataService) AppContextJavaProvider.getApplicationContext().getBean("dataService");
+    }
+    
+    List<User> findByUsername(String username)
+    {
+    	String sql = "select u from User u where username like '%"+StringUtils.trimAllWhitespace(username)+"%'";
+		DataService dataService = getDataService();
+    	return (List<User>)dataService.query(sql);
+    }
+    
+//    public User findThisOne(String username) {
+//	if (userProps == null)
+//	{
+//	    userProps = new UserProps();
+//	}
+//	 
+//        return userProps.entityManager.find(User.class, username);
+//    }
+
+//    @SuppressWarnings("unchecked")
+//    public List<User> findAllUsers() {
+//        return entityManager.createQuery("from " + User.class.getName()).getResultList();
+//    }
+//
+    void addToDatastore() 
+    {
+	
+		setUdob(AppUtils.parseDate(this.udobdd,this.udobmm,this.udobyyyy,DEFAULT_INPUT_DATE_FORMAT));
+		setUstartdate(AppUtils.parseDate(this.ustartdatedd,this.ustartdatemm,this.ustartdateyyyy,DEFAULT_INPUT_DATE_FORMAT));
+		if (!StringUtils.isEmpty(this.uenddatedd))
+		{
+		    try
+		    {
+		    	setUenddate(AppUtils.parseDate(this.uenddatedd,this.uenddatemm,this.uenddateyyyy,DEFAULT_INPUT_DATE_FORMAT));
+		    }
+		    catch (Exception e)
+		    {
+		    	e.printStackTrace();
+		    }
+		}
+		DataService dataService = getDataService();
+		dataService.create(this);
+    }
+    
+//    public User updateMe() {
+//        return entityManager.merge(User.class);
+//    }
+//
+//    public void deleteMe() {
+//	entityManager.remove(this);
+//    }
+
     public String getUsername()
     {
         return username;
@@ -354,48 +406,6 @@ public class User implements Serializable
         this.uenddate = uenddate;
     }
 
-//    public User findThisOne(String username) {
-//	if (userProps == null)
-//	{
-//	    userProps = new UserProps();
-//	}
-//	 
-//        return userProps.entityManager.find(User.class, username);
-//    }
-
-//    @SuppressWarnings("unchecked")
-//    public List<User> findAllUsers() {
-//        return entityManager.createQuery("from " + User.class.getName()).getResultList();
-//    }
-//
-	    void addToDatastore() {
-	
-		setUdob(AppUtils.parseDate(this.udobdd,this.udobmm,this.udobyyyy,DEFAULT_INPUT_DATE_FORMAT));
-		setUstartdate(AppUtils.parseDate(this.ustartdatedd,this.ustartdatemm,this.ustartdateyyyy,DEFAULT_INPUT_DATE_FORMAT));
-		if (!StringUtils.isEmpty(this.uenddatedd))
-		{
-		    try
-		    {
-		    	setUenddate(AppUtils.parseDate(this.uenddatedd,this.uenddatemm,this.uenddateyyyy,DEFAULT_INPUT_DATE_FORMAT));
-		    }
-		    catch (Exception e)
-		    {
-		    	e.printStackTrace();
-		    }
-		}
-		if (dataService == null)
-		{
-			dataService = (DataService) AppContextJavaProvider.getApplicationContext().getBean("dataService");
-		}
-		dataService.create(this);
-    }
     
-//    public User updateMe() {
-//        return entityManager.merge(User.class);
-//    }
-//
-//    public void deleteMe() {
-//	entityManager.remove(this);
-//    }
     
 }

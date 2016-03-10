@@ -14,13 +14,13 @@
 <body>
 	<jsp:include page="../home.jsp" />
 	
-	<form:form method="post" modelAttribute ="searchuser" >
-		<input type="text" name="searchString"/>
+	<form:form method="post" >
+		<input type="text" name="username"/>
 		<input type="submit"/>&nbsp;
 	</form:form>
 	<br/>
 
-	<c:forEach items="${searchUser.results}" var="item">
+	<c:forEach items="${searchUser}" var="item">
 	    <a href="/role/add">${item.username}</a>
 	    <br>
 	</c:forEach>

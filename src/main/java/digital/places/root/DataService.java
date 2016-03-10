@@ -1,5 +1,7 @@
 package digital.places.root;
 
+import java.util.List;
+
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +26,10 @@ public class DataService
     public void create(final Object obj)
     {
     	dataStore.getEntityManager().persist(obj);
+    }
+
+    public List query(final String queryString)
+    {
+    	return dataStore.getEntityManager().createQuery(queryString).getResultList();
     }
 }
