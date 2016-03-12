@@ -2,14 +2,12 @@ package digital.places.role;
 
 import java.util.Map;
 
-import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 // Its a servlet
 @Controller
@@ -19,21 +17,28 @@ public class RoleRestService
     private static Map<Integer, Role> roleMap;
 
     @RequestMapping(value = RoleConstants.ADDPAGEURL, method = RequestMethod.POST)
-    public String associateUsersWithRole(@ModelAttribute("username") String userName)
+    public String associateUsersWithRole(@RequestParam("user") String user, Model model)
     {
-	if (StringUtils.isEmpty(userName))
-	{
-	    return "redirect:/user/search";
-	}
-	return "redirect:"+RoleConstants.ADDPAGEURL;
+		if (StringUtils.isEmpty(user))
+		{
+		    return "redirect:/user/search";
+		}
+		Role role = new Role();
+    	model.addAttribute("roles",role.findAll());
+
+		UserRole urole = new UserRole();
+		model.addAttribute("userrole",urole);
+    	model.addAttribute("userroles",urole.findAll(user));
+    	
+		return RoleConstants.ADDPAGE;
     }
 
-    @InitBinder
-    public void initBinder(WebDataBinder dataBinder)
-    {
-	dataBinder.setRequiredFields(new String[] { "rolename","expiry"});
-	dataBinder.registerCustomEditor(String.class, new StringTrimmerEditor(false));
-    }
+//    @InitBinder
+//    public void initBinder(WebDataBinder dataBinder)
+//    {
+//	dataBinder.setRequiredFields(new String[] { "rolename","expiry"});
+//	dataBinder.registerCustomEditor(String.class, new StringTrimmerEditor(false));
+//    }
 
 
 }

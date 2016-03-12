@@ -1,49 +1,73 @@
 package digital.places.role;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.Calendar;
+import java.io.Serializable;
+import java.util.List;
 
-import digital.places.root.AppUtils;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-public class Role
+import digital.places.root.AppContextJavaProvider;
+import digital.places.root.DataService;
+
+@Entity
+@Table (name="roles")
+public class Role implements Serializable
 {
-    private String username;
+    private static final long serialVersionUID = 1L;
 
-    public synchronized void addUser() throws SQLException, ParseException
-    {
-	if (this.username != null && !"".equals(this.username))
-	{
-	    //TODOExternalize
-	    String sql = "insert into users (username,ufname,ulname,umname,udob,ustartdate,uenddate,enabled,uemail,password,ulocation) values (?,?,?,?,?,?,?,?,?,?,?)"; 
-	    Connection conn = null; 
-	    Calendar c = Calendar.getInstance();
-	    try 
-	    { 
-		conn = AppUtils.dataSource.getConnection(); 
-		PreparedStatement ps = conn.prepareStatement( sql);
-		ps.setString ( 1, this.username);
-		ps.executeUpdate(); 
-		ps.close();     	    
-	    } 
-	    finally 	
-	    { 
-		if (conn != null) 
-		{ 
-		    conn.close(); 
-		} 
-	    }
-	}
-    }
-
-
-    @Override
-    public String toString()
-    {
-	return this.username;
-    }
-
+    @Id
+    @GeneratedValue
+    @Column (columnDefinition = "TINYINT")
+    private int roleid;
     
+    @Column (columnDefinition = "VARCHAR",length = 55)
+    private String role;
+    
+    @Column (columnDefinition = "TINYINT")
+    private int enabled = 1;
+
+	public List<Role> findAll() {
+		DataService dataService = getDataService();
+	    return (List<Role>)dataService.query("select r from Role r");
+	}
+
+    void addToDatastore() 
+    {
+		DataService dataService = getDataService();
+		dataService.create(this);
+    }
+
+    private DataService getDataService()
+    {
+		return (DataService) AppContextJavaProvider.getApplicationContext().getBean("dataService");
+    }
+    
+    
+	public int getRoleid() {
+		return roleid;
+	}
+
+	public void setRoleid(int roleid) {
+		this.roleid = roleid;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public int getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(int enabled) {
+		this.enabled = enabled;
+	}
+
 }

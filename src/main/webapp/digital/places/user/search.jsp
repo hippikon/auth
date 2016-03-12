@@ -14,16 +14,22 @@
 <body>
 	<jsp:include page="../home.jsp" />
 	
-	<form:form method="post" >
+	<form:form method="post">
 		<input type="text" name="username"/>
 		<input type="submit"/>&nbsp;
 	</form:form>
-	<br/>
 
+	<form:form method="post" action="/auth/role/add">
 	<c:forEach items="${searchUser}" var="item">
-	    <a href="/role/add">${item.username}</a>
+		<input type="hidden" name="user" value="${item.username}"/>
+		<input type="Submit" value="Edit Roles"/>&nbsp;
+	    ${item.username}
 	    <br>
 	</c:forEach>
+	</form:form>
+
+	<br/>
+
 
 </body>
 </html>

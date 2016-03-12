@@ -8,6 +8,7 @@ import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import digital.places.role.RoleConstants;
 import digital.places.root.AppConstants;
 
 // Its a servlet
@@ -30,23 +32,25 @@ public class UserRestService
     }
 
     @RequestMapping(value = UserConstants.ADDPAGEURL, method = RequestMethod.POST)
-    public String create(@ModelAttribute("user") User user, BindingResult result)
+    public String create(@ModelAttribute("user") User user, BindingResult result, Model model)
     {
-	if (result.hasErrors())
-	{
-	    return UserConstants.ADDPAGE;
-	}
-
-	try
-	{
-	    user.addToDatastore();
-	}
-	catch (Exception e)
-	{
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	}
-	return "redirect:"+UserConstants.VIEWALLPAGE;
+		if (result.hasErrors())
+		{
+		    return UserConstants.ADDPAGE;
+		}
+	
+		try
+		{
+		    user.addToDatastore();
+		    model.addAttribute("username",user.getUsername());
+		}
+		catch (Exception e)
+		{
+		    e.printStackTrace();
+		    model.addAttribute("error","Unexpected error occured");
+		    return UserConstants.ADDPAGE;
+		}
+		return "addconfirm";
     }
 
     @RequestMapping(value = AppConstants.SEARCHPAGEURL, method = RequestMethod.GET)

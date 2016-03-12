@@ -14,6 +14,11 @@
 	<tr>
 	<td>
 	Create User <br/>
+	<div style="color:red">
+	<c:if test="${not empty error}">
+	   Error: ${error}
+	</c:if>	
+	</div>
 	<form:form method="post" modelAttribute ="user" >
 		Login* : <form:input path="username" /> 
 		<form:errors path="username" cssStyle="color:red;"/><br/>

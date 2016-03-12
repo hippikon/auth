@@ -14,12 +14,18 @@
 	<tr>
 	<td>
 	Associate User with Roles<br/>
-	<form:form method="post" modelAttribute ="role" >
+	<form:form method="post" modelAttribute ="userrole" >
 		Username : <form:input path="username" /> 
 		<form:errors path="username" cssStyle="color:red;"/><br/>
-		Available Roles : <form:select path="availRoles" multiple="true" />
+		Available Roles : 
+		<form:select multiple="true" path="username" >
+			<form:options items="${roles.role}" />
+		</form:select>
 		<form:errors path="availRoles" cssStyle="color:red;"/><br/>
-		Selected Roles : <form:select path="selectedRoles" multiple="true" />
+		Selected Roles : 
+		<form:select multiple="true" path="roleid" >
+			<form:options items="${userroles.roleid}" />
+		</form:select>
 		<form:errors path="availRoles" cssStyle="color:red;"/><br/>
 		<input type="submit"/>
 	</form:form>
