@@ -1,5 +1,6 @@
 package digital.places.role;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -24,11 +25,11 @@ public class RoleRestService
 		    return "redirect:/user/search";
 		}
 		Role role = new Role();
-    	model.addAttribute("roles",role.findAll());
+    	model.addAttribute("roles",role.findAllRoleNames());
 
 		UserRole urole = new UserRole();
 		model.addAttribute("userrole",urole);
-    	model.addAttribute("userroles",urole.findAll(user));
+    	model.addAttribute("userroles",urole.findAllRoleNames(user));
     	
 		return RoleConstants.ADDPAGE;
     }

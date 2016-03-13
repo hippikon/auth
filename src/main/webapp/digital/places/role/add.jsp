@@ -15,19 +15,35 @@
 	<td>
 	Associate User with Roles<br/>
 	<form:form method="post" modelAttribute ="userrole" >
-		Username : <form:input path="username" /> 
-		<form:errors path="username" cssStyle="color:red;"/><br/>
-		Available Roles : 
-		<form:select multiple="true" path="username" >
-			<form:options items="${roles.role}" />
-		</form:select>
-		<form:errors path="availRoles" cssStyle="color:red;"/><br/>
-		Selected Roles : 
-		<form:select multiple="true" path="roleid" >
-			<form:options items="${userroles.roleid}" />
-		</form:select>
-		<form:errors path="availRoles" cssStyle="color:red;"/><br/>
-		<input type="submit"/>
+		<table>
+		<tr>
+			<td colspan=2>
+			Username : <form:input path="username" /> 
+			<form:errors path="username" cssStyle="color:red;"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Available Roles<br/>
+				<form:select multiple="true" path="role" style="width:150px;height:100px">
+					<form:options items="${roles}" />
+				</form:select>
+				<form:errors path="role" cssStyle="color:red;"/>
+			</td>
+			<td>
+				Selected Roles<br/> 
+				<form:select multiple="true" path="selectedRoles" style="width:150px;height:100px" >
+					<form:options items="${userroles}" />
+				</form:select>
+				<form:errors path="role" cssStyle="color:red;"/><br/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 align="center">
+			<input type="submit"/>
+			</td>
+		</tr>
+		</table>
 	</form:form>
 	</td>
 	</tr>

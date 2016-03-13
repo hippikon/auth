@@ -1,7 +1,9 @@
 package digital.places.role;
 
 import java.io.Serializable;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,12 +28,27 @@ public class Role implements Serializable
     @Column (columnDefinition = "VARCHAR",length = 55)
     private String role;
     
-    @Column (columnDefinition = "TINYINT")
+	@Column (columnDefinition = "TINYINT")
     private int enabled = 1;
+
+    @Override
+	public String toString() {
+		return role;
+	}
 
 	public List<Role> findAll() {
 		DataService dataService = getDataService();
 	    return (List<Role>)dataService.query("select r from Role r");
+	}
+
+	public Map<String,String> findAllRoleNames() {
+		Map<String,String> roleNames = new LinkedHashMap<String,String>();
+		List<Role> roles = findAll();
+		for (Role role:roles)
+		{
+			roleNames.put(String.valueOf(role.getRoleid()), role.getRole());
+		}
+	    return roleNames;
 	}
 
     void addToDatastore() 
@@ -54,7 +71,8 @@ public class Role implements Serializable
 		this.roleid = roleid;
 	}
 
-	public String getRole() {
+	public String getRole() 
+	{
 		return role;
 	}
 
