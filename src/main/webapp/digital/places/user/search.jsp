@@ -19,13 +19,13 @@
 		<input type="submit"/>&nbsp;
 	</form:form>
 
-	<form:form method="post" action="/auth/role/add">
-	<c:forEach items="${searchUser}" var="item">
-		<input type="hidden" name="user" value="${item.username}"/>
-		<input type="Submit" value="Edit Roles"/>&nbsp;
+	<form:form method="get" action="/auth/role/add">
+	<c:forEach items="${searchUser}" var="item" varStatus="index">
+		<input type="Submit" value="Edit Roles" id="${item.username}" onClick="document.getElementById('username').value='${item.username}';"/>&nbsp;
 	    ${item.username}
 	    <br>
 	</c:forEach>
+		<input type="hidden" name="username" id="username" value=""/>
 	</form:form>
 
 	<br/>

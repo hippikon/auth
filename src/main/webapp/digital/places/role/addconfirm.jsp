@@ -5,18 +5,16 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Auth - Confirm User Added</title>
+	<title>Auth - Confirm Roles Added for User</title>
 	<link href='<c:url value="/lib/main.css" />' rel="stylesheet"/>
 </head>
 <body>
 	<jsp:include page="../home.jsp" />
 	<table border="1" cellpadding="15" width="80%" align="center">
 	<tr>
-	<td>Auth - Confirm User Added<br/>
-	<form:form method="get" action="/auth/role/add" modelAttribute ="username" >
-		<input name="username" value="${username}" readonly/> added successfully
+	<td>Auth - Confirm Roles Added for User<br/>
+		<input name="username" value="${userrole.username}" readonly/> added successfully
 		<input type="submit" />
-	</form:form>
 	</td>
 	</tr>
 	</table>	
