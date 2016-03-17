@@ -29,28 +29,30 @@
 		<table>
 		<tr>
 			<td colspan=3>
-			Username : <form:input path="username" /> 
+			Username : ${userrole.username}
+			<form:hidden path="username" readonly="true"/> 
 			<form:errors path="username" cssStyle="color:red;"/>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				Available Roles<br/>
-				<form:select size="5" path="role" style="width:150px;height:100px">
-					<form:options items="${roles}" />
-				</form:select>
-				<form:errors path="role" cssStyle="color:red;"/>
-			</td>
-			<td>
-				<input type="button" value=">" id="push" onclick="transfer(document.getElementById('role'),document.getElementById('selectedRoles'))"/><br/>
-				<input type="button" value="<" id="pull" onclick="transfer(document.getElementById('selectedRoles'),document.getElementById('role'))"/>
-			</td>
-			<td>
-				Selected Roles<br/> 
-				<form:select size="5" path="selectedRoles" style="width:150px;height:100px" >
-					<form:options items="${userroles}" />
-				</form:select>
-				<form:errors path="role" cssStyle="color:red;"/><br/>
+				<table border="1">
+					<tr>
+						<th align="center">Select Role</td>
+						<th align="center">Role Name</td>
+						<th align="center">Role Enabled</td>
+					</tr>
+					<c:forEach items="${userrole.srids}" var="role" varStatus="c">
+					<tr>
+						<td align="center"><input type="checkbox" path="role[${c.index}].selected" ${role.selected} /></td>
+						<td>${role.role}
+							<input type="hidden" id="roleid" path="role[${c.index}].roleid" value="${role.roleid}" />
+							<input type="hidden" id="userroleid" path="role[${c.index}].upsertflag" value="${role.upsertflag}" />
+						</td>
+						<td align="center"><input type="checkbox" path="role[${c.index}].enabled" checked/></td>
+					</tr>
+					</c:forEach>
+				</table>
 			</td>
 		</tr>
 		<tr>

@@ -9,7 +9,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SecondaryTable;
+import javax.persistence.SecondaryTables;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.util.StringUtils;
 
 import digital.places.root.AppContextJavaProvider;
 import digital.places.root.DataService;
@@ -30,18 +36,52 @@ public class Role implements Serializable
     
 	@Column (columnDefinition = "TINYINT")
     private int enabled = 1;
+	
+    @Transient
+	private String selected = "";
 
-    @Override
-	public String toString() {
+    @Transient
+	private int upsertflag = -1;
+    
+    @Transient
+    private String username;
+
+	@Override
+	public String toString() 
+	{
 		return role;
 	}
 
-	public List<Role> findAll() {
+	@Override
+	public boolean equals(Object inRole) 
+	{
+		if (inRole instanceof Role && roleid == ((Role)inRole).roleid)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return 1;
+	}
+
+	public List<Role> findAll() 
+	{
 		DataService dataService = getDataService();
 	    return (List<Role>)dataService.query("select r from Role r");
 	}
 
-	public Map<String,String> findAllRoleNames() {
+	public List<Role> findAll(String username) 
+	{
+		DataService dataService = getDataService();
+	    return (List<Role>) dataService.query("select r from UserRole ur, Role r where ur.roleid = r.roleid and r.enabled=1 and ur.username like '%"+StringUtils.trimAllWhitespace(username)+"%'");
+	}
+
+	
+	public Map<String,String> findAllRoleNames() 
+	{
 		Map<String,String> roleNames = new LinkedHashMap<String,String>();
 		List<Role> roles = findAll();
 		for (Role role:roles)
@@ -62,6 +102,30 @@ public class Role implements Serializable
 		return (DataService) AppContextJavaProvider.getApplicationContext().getBean("dataService");
     }
     
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getSelected() {
+		return selected;
+	}
+
+	public int getUpsertflag() {
+		return upsertflag;
+	}
+
+	public void setUpsertflag(int upsertflag) {
+		this.upsertflag = upsertflag;
+	}
+
+	public void setSelected(String selected) {
+		this.selected = selected;
+	}
+
     
 	public int getRoleid() {
 		return roleid;
@@ -87,5 +151,6 @@ public class Role implements Serializable
 	public void setEnabled(int enabled) {
 		this.enabled = enabled;
 	}
+
 
 }

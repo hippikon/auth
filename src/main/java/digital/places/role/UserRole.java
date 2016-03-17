@@ -45,7 +45,7 @@ public class UserRole implements Serializable
     private String role;
 
     @Transient
-    private List<String> selectedRoles; 
+    private List<Role> srids; 
 
 	@Column (columnDefinition = "DATETIME")
     private Date rolestartdate;
@@ -64,8 +64,7 @@ public class UserRole implements Serializable
 
 	public List<UserRole> findAll(String user) {
 		DataService dataService = getDataService();
-		Object obj = dataService.query("select ur.userroleid,ur.username,ur.roleid,r.role,ur.rolestartdate,ur.roleenddate,ur.enabled from UserRole ur, Role r where r.enabled=1 and ur.enabled=1 and username like '%"+StringUtils.trimAllWhitespace(user)+"%'");
-	    return (List<UserRole>)obj;
+		return (List<UserRole>) dataService.query("select ur.userroleid,ur.username,ur.roleid,r.role,ur.rolestartdate,ur.roleenddate,ur.enabled from UserRole ur, Role r where r.enabled=1 and ur.enabled=1 and ur.username like '%"+StringUtils.trimAllWhitespace(user)+"%'");
 	}
 
 	public Map<String,String> findAllRoleNames(String user) {
@@ -87,15 +86,21 @@ public class UserRole implements Serializable
     }
     
     
-	public List<String> getSelectedRoles() {
-		return selectedRoles;
+    
+	UserRole cloneThis() throws CloneNotSupportedException 
+	{
+		UserRole clone = new UserRole();
+		clone.setEnabled(this.getEnabled());
+		clone.setRole(this.getRole());
+		clone.setRoleenddate(this.getRoleenddate());
+		clone.setRoleid(this.getRoleid());
+		clone.setRolestartdate(this.getRolestartdate());
+		clone.setUsername(this.getUsername());
+		clone.setUserroleid(this.getUserroleid());
+		return clone;
 	}
 
-	public void setSelectedRoles(List<String> selectedRoles) {
-		this.selectedRoles = selectedRoles;
-	}
-
-    public String getRole() {
+	public String getRole() {
 		return role;
 	}
 
@@ -103,22 +108,12 @@ public class UserRole implements Serializable
 		this.role = role;
 	}
 
-	public String getRoleidd() 
-	{
-		return String.valueOf(roleid);
+	public List<Role> getSrids() {
+		return srids;
 	}
 
-	public void setRoleidd(String roleid) 
-	{
-		if (!StringUtils.isEmpty(roleid))
-		{
-			this.roleid = Integer.valueOf(roleid);
-		}
-	}
-
-    @Override
-	public String toString() {
-		return getRoleidd();
+	public void setSrids(List<Role> srids) {
+		this.srids = srids;
 	}
 
 	public int getRoleid() {

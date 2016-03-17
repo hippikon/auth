@@ -1,5 +1,6 @@
 package digital.places.role;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -28,35 +29,41 @@ public class RoleRestService
 		    return "redirect:/user/search";
 		}
 
+		Role role = new Role();
+    	List<Role> allRoles = role.findAll();
+    	List<Role> userroles = role.findAll(username);
+    	for (Role r:allRoles)
+    	{
+    		if (userroles.contains(r))
+    		{
+    			r.setSelected("checked");
+    			r.setUpsertflag(0);
+    			r.setUsername(username);
+    		}
+    	}
 		UserRole userRole = new UserRole();
 		userRole.setUsername(username);
+		userRole.setSrids(allRoles);
 		model.addAttribute("userrole", userRole);
-    	model.addAttribute("userroles",userRole.findAllRoleNames(username));
-
-		Role role = new Role();
-    	model.addAttribute("roles",role.findAllRoleNames());
+//		
+//    	model.addAttribute("userroles",userRole.findAllRoleNames(username));
 
 		return RoleConstants.ADDPAGE;
     }
 
 
     @RequestMapping(value = RoleConstants.ADDPAGEURL, method = RequestMethod.POST)
-    public String associateUsersWithRole(@ModelAttribute("userrole") UserRole userRole, BindingResult result, Model model)
+    public String associateUsersWithRole(@ModelAttribute("userrole") UserRole userRole, Model model)
     {
-		if (result.hasErrors())
-		{
-		    return RoleConstants.ADDPAGE;
-		}
-
 		return "addconfirm";
     }
 
-    @InitBinder
-    public void initBinder(WebDataBinder dataBinder)
-    {
-    	dataBinder.setRequiredFields(new String[] { "selectedRoles"});
-//	dataBinder.registerCustomEditor(String.class, new StringTrimmerEditor(false));
-    }
+//    @InitBinder
+//    public void initBinder(WebDataBinder dataBinder)
+//    {
+//    	dataBinder.setRequiredFields(new String[] { "selectedRoles"});
+////	dataBinder.registerCustomEditor(String.class, new StringTrimmerEditor(false));
+//    }
 
 
 }
