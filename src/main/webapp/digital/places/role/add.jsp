@@ -24,14 +24,12 @@
 	<table border="1" cellpadding="15" width="80%" align="center">
 	<tr>
 	<td>
-	Associate User with Roles<br/>
+	Add Roles for User<br/>
 	<form:form method="post" modelAttribute ="userrole" >
 		<table>
 		<tr>
 			<td colspan=3>
 			Username : ${userrole.username}
-			<form:hidden path="username" readonly="true"/> 
-			<form:errors path="username" cssStyle="color:red;"/>
 			</td>
 		</tr>
 		<tr>
@@ -42,14 +40,16 @@
 						<th align="center">Role Name</td>
 						<th align="center">Role Enabled</td>
 					</tr>
-					<c:forEach items="${userrole.srids}" var="role" varStatus="c">
+					<c:forEach items="${userrole.srids}" var="srid" varStatus="c">
 					<tr>
-						<td align="center"><input type="checkbox" path="role[${c.index}].selected" ${role.selected} /></td>
-						<td>${role.role}
-							<input type="hidden" id="roleid" path="role[${c.index}].roleid" value="${role.roleid}" />
-							<input type="hidden" id="userroleid" path="role[${c.index}].upsertflag" value="${role.upsertflag}" />
+						<td align="center">
+						   <input type="checkbox" name="srids[${c.index}].selected" ${srid.selected} <c:if test="${not empty srid.selected}">disabled</c:if>/>
 						</td>
-						<td align="center"><input type="checkbox" path="role[${c.index}].enabled" checked/></td>
+						<td>${srid.role}
+							<input type="hidden" name="srids[${c.index}].roleid" value="${srid.roleid}" />
+							<input type="hidden" name="srids[${c.index}].upsertid" value="${srid.upsertid}" />
+						</td>
+						<td align="center"><input type="checkbox" name="srids[${c.index}].stren" checked <c:if test="${not empty srid.selected}">disabled</c:if>/></td>
 					</tr>
 					</c:forEach>
 				</table>
@@ -66,4 +66,4 @@
 	</tr>
 	</table>	
 </body>
-</html>
+</html> 

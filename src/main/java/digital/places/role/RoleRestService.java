@@ -37,14 +37,14 @@ public class RoleRestService
     		if (userroles.contains(r))
     		{
     			r.setSelected("checked");
-    			r.setUpsertflag(0);
+    			r.setUpsertid(0);
     			r.setUsername(username);
     		}
     	}
-		UserRole userRole = new UserRole();
-		userRole.setUsername(username);
-		userRole.setSrids(allRoles);
-		model.addAttribute("userrole", userRole);
+		UserRole userrole = new UserRole();
+		userrole.setUsername(username);
+		userrole.setSrids(allRoles);
+		model.addAttribute("userrole", userrole);
 //		
 //    	model.addAttribute("userroles",userRole.findAllRoleNames(username));
 
@@ -53,7 +53,7 @@ public class RoleRestService
 
 
     @RequestMapping(value = RoleConstants.ADDPAGEURL, method = RequestMethod.POST)
-    public String associateUsersWithRole(@ModelAttribute("userrole") UserRole userRole, Model model)
+    public String associateUsersWithRole(@ModelAttribute("userrole") UserRole userrole, Model model)
     {
 		return "addconfirm";
     }

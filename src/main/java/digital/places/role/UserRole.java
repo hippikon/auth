@@ -62,12 +62,20 @@ public class UserRole implements Serializable
 		dataService.create(this);
     }
 
-	public List<UserRole> findAll(String user) {
+	public List<UserRole> findAll(String user) 
+	{
 		DataService dataService = getDataService();
 		return (List<UserRole>) dataService.query("select ur.userroleid,ur.username,ur.roleid,r.role,ur.rolestartdate,ur.roleenddate,ur.enabled from UserRole ur, Role r where r.enabled=1 and ur.enabled=1 and ur.username like '%"+StringUtils.trimAllWhitespace(user)+"%'");
 	}
 
-	public Map<String,String> findAllRoleNames(String user) {
+	public List<UserRole> findAllPotential(String user) 
+	{
+		DataService dataService = getDataService();
+		return (List<UserRole>) dataService.query("select ur.userroleid,ur.username,ur.roleid,r.role,ur.rolestartdate,ur.roleenddate,ur.enabled from UserRole ur, Role r where r.enabled=1 and ur.enabled=1 and ur.username like '%"+StringUtils.trimAllWhitespace(user)+"%'");
+	}
+
+	public Map<String,String> findAllRoleNames(String user) 
+	{
 		List<UserRole> userRoles = findAll(user);
 		Map<String,String> userRoleNames = new LinkedHashMap<String,String>();
 		if (userRoles != null && userRoles.size() > 0)

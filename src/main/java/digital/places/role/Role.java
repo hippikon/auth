@@ -1,6 +1,7 @@
 package digital.places.role;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,15 +38,27 @@ public class Role implements Serializable
 	@Column (columnDefinition = "TINYINT")
     private int enabled = 1;
 	
-    @Transient
+	@Transient
+    private String stren = "1";
+
+	@Transient
 	private String selected = "";
 
     @Transient
-	private int upsertflag = -1;
+	private int upsertid = -1;
     
     @Transient
     private String username;
 
+	@Transient
+    private Date rolestartdate;
+
+    @Transient
+    private Date roleenddate;
+    
+    @Transient
+    private int enabledForUsername = 1;
+    
 	@Override
 	public String toString() 
 	{
@@ -114,12 +127,12 @@ public class Role implements Serializable
 		return selected;
 	}
 
-	public int getUpsertflag() {
-		return upsertflag;
+	public int getUpsertid() {
+		return upsertid;
 	}
 
-	public void setUpsertflag(int upsertflag) {
-		this.upsertflag = upsertflag;
+	public void setUpsertid(int upsertid) {
+		this.upsertid = upsertid;
 	}
 
 	public void setSelected(String selected) {
@@ -150,6 +163,38 @@ public class Role implements Serializable
 
 	public void setEnabled(int enabled) {
 		this.enabled = enabled;
+	}
+
+	public Date getRolestartdate() {
+		return rolestartdate;
+	}
+
+	public void setRolestartdate(Date rolestartdate) {
+		this.rolestartdate = rolestartdate;
+	}
+
+	public Date getRoleenddate() {
+		return roleenddate;
+	}
+
+	public void setRoleenddate(Date roleenddate) {
+		this.roleenddate = roleenddate;
+	}
+
+	public int getEnabledForUsername() {
+		return enabledForUsername;
+	}
+
+	public void setEnabledForUsername(int enabledForUsername) {
+		this.enabledForUsername = enabledForUsername;
+	}
+
+	public String getStren() {
+		return stren;
+	}
+
+	public void setStren(String stren) {
+		this.stren = stren;
 	}
 
 
