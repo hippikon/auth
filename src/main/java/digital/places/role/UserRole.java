@@ -2,33 +2,31 @@ package digital.places.role;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.SecondaryTable;
-import javax.persistence.SecondaryTables;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.springframework.util.StringUtils;
 
+import digital.places.root.AppConstants;
 import digital.places.root.AppContextJavaProvider;
 import digital.places.root.DataService;
 
 @Entity
 @Table (name="user_roles")
-@SecondaryTables({
-    @SecondaryTable(name="roles", pkJoinColumns={@PrimaryKeyJoinColumn(name = "roleid")})
-})
 public class UserRole implements Serializable
 {
     private static final long serialVersionUID = 1L;
+    public static final LinkedHashMap<String,String> UDD = AppConstants.UDD;
+    public static final LinkedHashMap<String,String> UMM = AppConstants.UMM;
+    public static final LinkedHashMap<String,String> UYYYY = AppConstants.UYYYY;
 
     @Id
     @GeneratedValue
@@ -41,22 +39,49 @@ public class UserRole implements Serializable
     @Column
     private int roleid;
     
-    @Column (table = "roles")
-    private String role;
-
     @Transient
-    private List<Role> srids; 
+    private String roleName;
+
+	@Transient
+	private String selected = "";
+
+	@Transient
+	private String strenabled = "";
+
+	@Transient
+	private int upsertid = -1;
+
+	@Transient
+    private List<UserRole> allroles; 
 
 	@Column (columnDefinition = "DATETIME")
     private Date rolestartdate;
+	
+    @Transient
+    private String rolesddd;
+    
+    @Transient
+    private String rolesdmm;
+    
+    @Transient
+    private String rolesdyyyy;
 
     @Column (columnDefinition = "DATETIME")
     private Date roleenddate;
     
+    @Transient
+    private String roleeddd;
+    
+    @Transient
+    private String roleedmm;
+    
+    @Transient
+    private String roleedyyyy;
+
     @Column (columnDefinition = "TINYINT")
     private int enabled = 1;
 
-    void addToDatastore() 
+	void addToDatastore() 
     {
 		DataService dataService = getDataService();
 		dataService.create(this);
@@ -65,63 +90,77 @@ public class UserRole implements Serializable
 	public List<UserRole> findAll(String user) 
 	{
 		DataService dataService = getDataService();
-		return (List<UserRole>) dataService.query("select ur.userroleid,ur.username,ur.roleid,r.role,ur.rolestartdate,ur.roleenddate,ur.enabled from UserRole ur, Role r where r.enabled=1 and ur.enabled=1 and ur.username like '%"+StringUtils.trimAllWhitespace(user)+"%'");
+		return (List<UserRole>) dataService.query("select ur from UserRole ur, Role r where r.enabled=1 and ur.enabled=1 and ur.roleid = r.roleid and ur.username like '%"+StringUtils.trimAllWhitespace(user)+"%'");
 	}
 
 	public List<UserRole> findAllPotential(String user) 
 	{
 		DataService dataService = getDataService();
-		return (List<UserRole>) dataService.query("select ur.userroleid,ur.username,ur.roleid,r.role,ur.rolestartdate,ur.roleenddate,ur.enabled from UserRole ur, Role r where r.enabled=1 and ur.enabled=1 and ur.username like '%"+StringUtils.trimAllWhitespace(user)+"%'");
-	}
-
-	public Map<String,String> findAllRoleNames(String user) 
-	{
-		List<UserRole> userRoles = findAll(user);
-		Map<String,String> userRoleNames = new LinkedHashMap<String,String>();
-		if (userRoles != null && userRoles.size() > 0)
+		List<Role> allRoles = (List<Role>)dataService.query(Role.DEFAULT_FINDALLVALID_QUERY);
+		List<UserRole> allCurUserRoles = findAll(user);
+		List<UserRole> allPUserRoles = new ArrayList<UserRole>();
+		for (Role role:allRoles)
 		{
-			for (UserRole userRole:userRoles)
+			UserRole urole = new UserRole();
+			urole.setRoleid(role.getRoleid());
+			urole.setRoleName(role.getRole());
+			urole.setUsername(user);
+			if (allCurUserRoles.contains(urole))
 			{
-				userRoleNames.put(String.valueOf(userRole.getRoleid()), userRole.getRole());
+				UserRole temp = allCurUserRoles.get(allCurUserRoles.indexOf(urole));
+				temp.setSelected("checked");
+				temp.setUpsertid(0);
+				temp.setRoleName(role.getRole());
+			}
+			else
+			{
+				allPUserRoles.add(urole);
 			}
 		}
-	    return userRoleNames;
+		allCurUserRoles.addAll(allPUserRoles);
+		return allCurUserRoles;
 	}
-    
+
+	
     private DataService getDataService()
     {
 		return (DataService) AppContextJavaProvider.getApplicationContext().getBean("dataService");
     }
     
-    
-    
-	UserRole cloneThis() throws CloneNotSupportedException 
+	@Override
+	public boolean equals(Object iUserRole) 
 	{
-		UserRole clone = new UserRole();
-		clone.setEnabled(this.getEnabled());
-		clone.setRole(this.getRole());
-		clone.setRoleenddate(this.getRoleenddate());
-		clone.setRoleid(this.getRoleid());
-		clone.setRolestartdate(this.getRolestartdate());
-		clone.setUsername(this.getUsername());
-		clone.setUserroleid(this.getUserroleid());
-		return clone;
+		if (iUserRole instanceof UserRole)
+		{
+			UserRole temp = (UserRole) iUserRole;
+			if (!StringUtils.isEmpty(this.username) && this.username.equals(temp.getUsername()) && roleid == temp.getRoleid())
+				return true;
+		}
+		return false;
 	}
 
-	public String getRole() {
-		return role;
+    
+    public String getRoleName() 
+    {
+		return roleName;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setRoleName(String roleName) 
+	{
+		this.roleName = roleName;
 	}
 
-	public List<Role> getSrids() {
-		return srids;
+	@Override
+	public int hashCode() {
+		return 1;
 	}
 
-	public void setSrids(List<Role> srids) {
-		this.srids = srids;
+	public List<UserRole> getAllroles() {
+		return allroles;
+	}
+
+	public void setAllroles(List<UserRole> allroles) {
+		this.allroles = allroles;
 	}
 
 	public int getRoleid() {
@@ -172,4 +211,87 @@ public class UserRole implements Serializable
 		this.enabled = enabled;
 	}
 
+	public String getRolesddd() {
+		return rolesddd;
+	}
+
+	public void setRolesddd(String rolesddd) {
+		this.rolesddd = rolesddd;
+	}
+
+	public String getRolesdmm() {
+		return rolesdmm;
+	}
+
+	public void setRolesdmm(String rolesdmm) {
+		this.rolesdmm = rolesdmm;
+	}
+
+	public String getRolesdyyyy() {
+		return rolesdyyyy;
+	}
+
+	public void setRolesdyyyy(String rolesdyyyy) {
+		this.rolesdyyyy = rolesdyyyy;
+	}
+
+	public String getRoleeddd() {
+		return roleeddd;
+	}
+
+	public void setRoleeddd(String roleeddd) {
+		this.roleeddd = roleeddd;
+	}
+
+	public String getRoleedmm() {
+		return roleedmm;
+	}
+
+	public void setRoleedmm(String roleedmm) {
+		this.roleedmm = roleedmm;
+	}
+
+	public String getRoleedyyyy() {
+		return roleedyyyy;
+	}
+
+	public void setRoleedyyyy(String roleedyyyy) {
+		this.roleedyyyy = roleedyyyy;
+	}
+
+	public String getSelected() {
+		return selected;
+	}
+
+	public void setSelected(String selected) {
+		this.selected = selected;
+	}
+
+	public String getStrenabled() {
+		return strenabled;
+	}
+
+	public void setStrenabled(String strenabled) {
+		this.strenabled = strenabled;
+	}
+
+	public int getUpsertid() {
+		return upsertid;
+	}
+
+	public void setUpsertid(int upsertid) {
+		this.upsertid = upsertid;
+	}
+
+	public LinkedHashMap<String, String> getUDD() {
+		return UDD;
+	}
+
+	public LinkedHashMap<String, String> getUMM() {
+		return UMM;
+	}
+
+	public LinkedHashMap<String, String> getUYYYY() {
+		return UYYYY;
+	}
 }

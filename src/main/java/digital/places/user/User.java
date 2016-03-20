@@ -1,6 +1,6 @@
 package digital.places.user;
 
- import java.io.Serializable;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -15,6 +15,7 @@ import javax.persistence.Transient;
 
 import org.springframework.util.StringUtils;
 
+import digital.places.root.AppConstants;
 import digital.places.root.AppContextJavaProvider;
 import digital.places.root.AppUtils;
 import digital.places.root.DataService;
@@ -31,23 +32,23 @@ public class User implements Serializable
     public static final Map<String,String> ULOCATIONS = new HashMap<String,String>();
     static
     {
-	ULOCATIONS.put("1","ROLLING MEADOWS, IL");
-	ULOCATIONS.put("2","WILMINGTON, DE");
-	ULOCATIONS.put("3","RICHMOND, VA");
+		ULOCATIONS.put("1","ROLLING MEADOWS, IL");
+		ULOCATIONS.put("2","WILMINGTON, DE");
+		ULOCATIONS.put("3","RICHMOND, VA");
     }
 
     public static final Map<Integer,String> ENABLEDS = new HashMap<Integer,String>();
     static
     {
-	ENABLEDS.put(1,"ENABLED");
-	ENABLEDS.put(0,"DISABLED");
+		ENABLEDS.put(1,"ENABLED");
+		ENABLEDS.put(0,"DISABLED");
     }
 
     public static final String DEFAULT_INPUT_DATE_FORMAT = "MM/dd/yyyy";
     
-    public static final LinkedHashMap<String,String> UDD = UserConstants.UDD;
-    public static final LinkedHashMap<String,String> UMM = UserConstants.UMM;
-    public static final LinkedHashMap<String,String> UYYYY = UserConstants.UYYYY;
+    public static final LinkedHashMap<String,String> UDD = AppConstants.UDD;
+    public static final LinkedHashMap<String,String> UMM = AppConstants.UMM;
+    public static final LinkedHashMap<String,String> UYYYY = AppConstants.UYYYY;
     public static final LinkedHashMap<String,String> UDOBY = UserConstants.UDOBY;
     
     @Id

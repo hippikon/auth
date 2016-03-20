@@ -6,9 +6,6 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,21 +26,21 @@ public class RoleRestService
 		    return "redirect:/user/search";
 		}
 
-		Role role = new Role();
-    	List<Role> allRoles = role.findAll();
-    	List<Role> userroles = role.findAll(username);
-    	for (Role r:allRoles)
-    	{
-    		if (userroles.contains(r))
-    		{
-    			r.setSelected("checked");
-    			r.setUpsertid(0);
-    			r.setUsername(username);
-    		}
-    	}
+//		Role role = new Role();
+//    	List<Role> allRoles = role.findAll();
+//    	List<Role> userroles = role.findAll(username);
+//    	for (Role r:allRoles)
+//    	{
+//    		if (userroles.contains(r))
+//    		{
+//    			r.setSelected("checked");
+//    			r.setUpsertid(0);
+//    			r.setUsername(username);
+//    		}
+//    	}
 		UserRole userrole = new UserRole();
 		userrole.setUsername(username);
-		userrole.setSrids(allRoles);
+		userrole.setAllroles(userrole.findAllPotential(username));
 		model.addAttribute("userrole", userrole);
 //		
 //    	model.addAttribute("userroles",userRole.findAllRoleNames(username));

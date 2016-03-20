@@ -36,20 +36,56 @@
 			<td>
 				<table border="1">
 					<tr>
-						<th align="center">Select Role</td>
-						<th align="center">Role Name</td>
-						<th align="center">Role Enabled</td>
+						<th align="center">Select Role</th>
+						<th align="center">Role Name</th>
+						<th align="center">Start Date</th>
+						<th align="center">End Date</th>
+						<th align="center">Role Enabled</th>
 					</tr>
-					<c:forEach items="${userrole.srids}" var="srid" varStatus="c">
+					<c:forEach items="${userrole.allroles}" var="urole" varStatus="c">
 					<tr>
 						<td align="center">
-						   <input type="checkbox" name="srids[${c.index}].selected" ${srid.selected} <c:if test="${not empty srid.selected}">disabled</c:if>/>
+						   <input type="checkbox" name="allroles[${c.index}].selected" ${urole.selected} <c:if test="${not empty urole.selected}">disabled</c:if>/>
 						</td>
-						<td>${srid.role}
-							<input type="hidden" name="srids[${c.index}].roleid" value="${srid.roleid}" />
-							<input type="hidden" name="srids[${c.index}].upsertid" value="${srid.upsertid}" />
+						<td>${urole.roleName}
+							<input type="hidden" name="allroles[${c.index}].roleid" value="${urole.roleid}" />
+							<input type="hidden" name="allroles[${c.index}].upsertid" value="${urole.upsertid}" />
 						</td>
-						<td align="center"><input type="checkbox" name="srids[${c.index}].stren" checked <c:if test="${not empty srid.selected}">disabled</c:if>/></td>
+						<td>
+							<c:choose>
+								<c:when test="${not empty urole.selected}">
+								  ${urole.rolestartdate}
+								</c:when>
+								<c:otherwise>
+									<form:select path="rolesddd">
+									<form:options items="${urole.UDD}" />
+									</form:select>/<form:select path="rolesdmm">
+									<form:options items="${urole.UMM}" />
+									</form:select>/<form:select path="rolesdyyyy">
+									<form:options items="${urole.UYYYY}" />
+									</form:select>  
+									<form:errors path="rolesddd" cssStyle="color:red;"/><br/>
+								</c:otherwise>
+							</c:choose>
+						</td>
+						<td>
+							<c:choose>
+								<c:when test="${not empty urole.selected}">
+								  ${urole.roleenddate}
+								</c:when>
+								<c:otherwise>
+									<form:select path="roleeddd">
+									<form:options items="${urole.UDD}" />
+									</form:select>/<form:select path="roleedmm">
+									<form:options items="${urole.UMM}" />
+									</form:select>/<form:select path="roleedyyyy">
+									<form:options items="${urole.UYYYY}" />
+									</form:select>  
+									<form:errors path="roleeddd" cssStyle="color:red;"/><br/>
+								</c:otherwise>
+							</c:choose>
+						</td>
+						<td align="center"><input type="checkbox" name="allroles[${c.index}].strenabled" checked <c:if test="${not empty role.selected}">disabled</c:if>/></td>
 					</tr>
 					</c:forEach>
 				</table>

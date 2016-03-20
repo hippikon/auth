@@ -1,7 +1,6 @@
 package digital.places.role;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,9 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.SecondaryTable;
-import javax.persistence.SecondaryTables;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -26,6 +22,8 @@ import digital.places.root.DataService;
 public class Role implements Serializable
 {
     private static final long serialVersionUID = 1L;
+    
+    public static final String DEFAULT_FINDALLVALID_QUERY = "select r from Role r where r.enabled = 1";
 
     @Id
     @GeneratedValue
@@ -38,27 +36,7 @@ public class Role implements Serializable
 	@Column (columnDefinition = "TINYINT")
     private int enabled = 1;
 	
-	@Transient
-    private String stren = "1";
 
-	@Transient
-	private String selected = "";
-
-    @Transient
-	private int upsertid = -1;
-    
-    @Transient
-    private String username;
-
-	@Transient
-    private Date rolestartdate;
-
-    @Transient
-    private Date roleenddate;
-    
-    @Transient
-    private int enabledForUsername = 1;
-    
 	@Override
 	public String toString() 
 	{
@@ -83,7 +61,7 @@ public class Role implements Serializable
 	public List<Role> findAll() 
 	{
 		DataService dataService = getDataService();
-	    return (List<Role>)dataService.query("select r from Role r");
+	    return (List<Role>)dataService.query(DEFAULT_FINDALLVALID_QUERY);
 	}
 
 	public List<Role> findAll(String username) 
@@ -115,30 +93,6 @@ public class Role implements Serializable
 		return (DataService) AppContextJavaProvider.getApplicationContext().getBean("dataService");
     }
     
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getSelected() {
-		return selected;
-	}
-
-	public int getUpsertid() {
-		return upsertid;
-	}
-
-	public void setUpsertid(int upsertid) {
-		this.upsertid = upsertid;
-	}
-
-	public void setSelected(String selected) {
-		this.selected = selected;
-	}
-
     
 	public int getRoleid() {
 		return roleid;
@@ -164,38 +118,5 @@ public class Role implements Serializable
 	public void setEnabled(int enabled) {
 		this.enabled = enabled;
 	}
-
-	public Date getRolestartdate() {
-		return rolestartdate;
-	}
-
-	public void setRolestartdate(Date rolestartdate) {
-		this.rolestartdate = rolestartdate;
-	}
-
-	public Date getRoleenddate() {
-		return roleenddate;
-	}
-
-	public void setRoleenddate(Date roleenddate) {
-		this.roleenddate = roleenddate;
-	}
-
-	public int getEnabledForUsername() {
-		return enabledForUsername;
-	}
-
-	public void setEnabledForUsername(int enabledForUsername) {
-		this.enabledForUsername = enabledForUsername;
-	}
-
-	public String getStren() {
-		return stren;
-	}
-
-	public void setStren(String stren) {
-		this.stren = stren;
-	}
-
 
 }
