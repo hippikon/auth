@@ -1,6 +1,5 @@
 package digital.places.role;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -26,24 +25,10 @@ public class RoleRestService
 		    return "redirect:/user/search";
 		}
 
-//		Role role = new Role();
-//    	List<Role> allRoles = role.findAll();
-//    	List<Role> userroles = role.findAll(username);
-//    	for (Role r:allRoles)
-//    	{
-//    		if (userroles.contains(r))
-//    		{
-//    			r.setSelected("checked");
-//    			r.setUpsertid(0);
-//    			r.setUsername(username);
-//    		}
-//    	}
 		UserRole userrole = new UserRole();
 		userrole.setUsername(username);
 		userrole.setAllroles(userrole.findAllPotential(username));
 		model.addAttribute("userrole", userrole);
-//		
-//    	model.addAttribute("userroles",userRole.findAllRoleNames(username));
 
 		return RoleConstants.ADDPAGE;
     }

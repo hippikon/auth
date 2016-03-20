@@ -2,7 +2,7 @@ package digital.places.user;
 
 import java.util.LinkedHashMap;
 
-public class UserConstants
+class UserConstants
 {
     static final String ADDPAGE = "add";
     static final String ADDPAGEURL = "/add";
