@@ -15,7 +15,9 @@ public class AppConstants
     public static final String SEARCHPAGE ="search";
 
     public static final LinkedHashMap<String,String> UYYYY = new LinkedHashMap<String,String>();
-    
+
+    public static final String DEFAULT_INPUT_DATE_FORMAT = "MM/dd/yyyy";
+
     static
     {
     	UYYYY.put("","YYYY");

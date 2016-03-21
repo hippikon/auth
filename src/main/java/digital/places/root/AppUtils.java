@@ -1,6 +1,7 @@
 package digital.places.root;
 
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.Calendar;
 
 import javax.sql.DataSource;
@@ -19,16 +20,20 @@ public class AppUtils
 	}
     }
     
-    public static Date parseDate(String day, String month, String year, String format)
+    public static Date parseDate(String day, String month, String year, String format) throws ParseException
     {
-	Date outputDate = null;
-	if (!StringUtils.isEmpty(day) && !StringUtils.isEmpty(month) &&!StringUtils.isEmpty(year) && !StringUtils.isEmpty(format))
-	{
-	    Calendar c = Calendar.getInstance();
-	    c.set(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
-	    outputDate = new Date(c.getTimeInMillis());
-	}
-	return outputDate;
+		Date outputDate = null;
+		if (!StringUtils.isEmpty(day) && !StringUtils.isEmpty(month) &&!StringUtils.isEmpty(year) && !StringUtils.isEmpty(format))
+		{
+		    Calendar c = Calendar.getInstance();
+		    c.set(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+		    outputDate = new Date(c.getTimeInMillis());
+		}
+		else
+		{
+			throw new ParseException("invalid date",0);
+		}
+		return outputDate;
     }
     
 }

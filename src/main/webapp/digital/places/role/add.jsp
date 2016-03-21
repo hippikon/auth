@@ -48,42 +48,48 @@
 						   <input type="checkbox" name="allroles[${c.index}].selected" ${urole.selected} <c:if test="${not empty urole.selected}">disabled</c:if>/>
 						</td>
 						<td>${urole.roleName}
+							<input type="hidden" name="allroles[${c.index}].username" value="${urole.username}" />
 							<input type="hidden" name="allroles[${c.index}].roleid" value="${urole.roleid}" />
+							<input type="hidden" name="allroles[${c.index}].roleName" value="${urole.roleName}" />
 							<input type="hidden" name="allroles[${c.index}].upsertid" value="${urole.upsertid}" />
 						</td>
 						<td>
 							<c:choose>
 								<c:when test="${not empty urole.selected}">
-								  ${urole.rolestartdate}
+								  	${urole.rolestartdate}
+								    
 								</c:when>
 								<c:otherwise>
-									<form:select path="rolesddd">
+									<form:select path="allroles[${c.index}].rolesddd" >
 									<form:options items="${urole.UDD}" />
-									</form:select>/<form:select path="rolesdmm">
+									</form:select>/<form:select path="allroles[${c.index}].rolesdmm">
 									<form:options items="${urole.UMM}" />
-									</form:select>/<form:select path="rolesdyyyy">
+									</form:select>/<form:select path="allroles[${c.index}].rolesdyyyy">
 									<form:options items="${urole.UYYYY}" />
 									</form:select>  
-									<form:errors path="rolesddd" cssStyle="color:red;"/><br/>
+									<form:errors path="allroles[${c.index}].rolesddd" cssStyle="color:red;"/><br/>
 								</c:otherwise>
 							</c:choose>
+							<input type="hidden" name="allroles[${c.index}].rolestartdate" value="${urole.rolestartdate}" />
 						</td>
 						<td>
 							<c:choose>
 								<c:when test="${not empty urole.selected}">
-								  ${urole.roleenddate}
+								  	${urole.roleenddate}
+								  	
 								</c:when>
 								<c:otherwise>
-									<form:select path="roleeddd">
+									<form:select path="allroles[${c.index}].roleeddd">
 									<form:options items="${urole.UDD}" />
-									</form:select>/<form:select path="roleedmm">
+									</form:select>/<form:select path="allroles[${c.index}].roleedmm">
 									<form:options items="${urole.UMM}" />
-									</form:select>/<form:select path="roleedyyyy">
+									</form:select>/<form:select path="allroles[${c.index}].roleedyyyy">
 									<form:options items="${urole.UYYYY}" />
 									</form:select>  
-									<form:errors path="roleeddd" cssStyle="color:red;"/><br/>
+									<form:errors path="allroles[${c.index}].roleeddd" cssStyle="color:red;"/><br/>
 								</c:otherwise>
 							</c:choose>
+							<input type="hidden" name="allroles[${c.index}].roleenddate" value="${urole.roleenddate}" />
 						</td>
 						<td align="center"><input type="checkbox" name="allroles[${c.index}].strenabled" checked <c:if test="${not empty role.selected}">disabled</c:if>/></td>
 					</tr>

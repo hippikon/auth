@@ -17,6 +17,7 @@ import org.springframework.util.StringUtils;
 
 import digital.places.root.AppConstants;
 import digital.places.root.AppContextJavaProvider;
+import digital.places.root.AppUtils;
 import digital.places.root.DataService;
 
 @Entity
@@ -139,6 +140,50 @@ public class UserRole implements Serializable
 		return false;
 	}
 
+    int add() throws Exception
+    {
+    	if (upsertid == -1)
+    	{
+			//For add page - readonly view of existing records in case of errors
+    		selected = "";
+    		
+        	validateThis();
+        	if ("on".equals(strenabled))
+        	{
+        		enabled = 1;
+        	}
+        	else
+        	{
+        		enabled = 0;
+        	}
+    		DataService dataService = getDataService();
+    		dataService.create(this);
+    		return 1;
+    	}
+    	else
+    	{
+			//For add page - readonly view of existing records in case of errors
+    		selected = "checked";
+    	}
+    	return 0;
+    }
+    
+    private void validateThis() throws Exception
+    {		
+	    try
+	    {
+	    	setRolestartdate(AppUtils.parseDate(this.rolesddd,this.rolesdmm,this.rolesdyyyy,AppConstants.DEFAULT_INPUT_DATE_FORMAT));
+			if (!StringUtils.isEmpty(this.roleeddd))
+			{
+			    setRoleenddate(AppUtils.parseDate(this.roleeddd,this.roleedmm,this.roleedyyyy,AppConstants.DEFAULT_INPUT_DATE_FORMAT));
+		    }
+		}
+	    catch (Exception e)
+	    {
+	    	e.printStackTrace();
+	    	throw e;
+	    }
+    }
     
     public String getRoleName() 
     {

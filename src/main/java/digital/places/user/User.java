@@ -2,6 +2,7 @@ package digital.places.user;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -44,7 +45,6 @@ public class User implements Serializable
 		ENABLEDS.put(0,"DISABLED");
     }
 
-    public static final String DEFAULT_INPUT_DATE_FORMAT = "MM/dd/yyyy";
     
     public static final LinkedHashMap<String,String> UDD = AppConstants.UDD;
     public static final LinkedHashMap<String,String> UMM = AppConstants.UMM;
@@ -138,16 +138,16 @@ public class User implements Serializable
 //        return entityManager.createQuery("from " + User.class.getName()).getResultList();
 //    }
 //
-    void addToDatastore() 
+    void addToDatastore() throws ParseException 
     {
 	
-		setUdob(AppUtils.parseDate(this.udobdd,this.udobmm,this.udobyyyy,DEFAULT_INPUT_DATE_FORMAT));
-		setUstartdate(AppUtils.parseDate(this.ustartdatedd,this.ustartdatemm,this.ustartdateyyyy,DEFAULT_INPUT_DATE_FORMAT));
+		setUdob(AppUtils.parseDate(this.udobdd,this.udobmm,this.udobyyyy,AppConstants.DEFAULT_INPUT_DATE_FORMAT));
+		setUstartdate(AppUtils.parseDate(this.ustartdatedd,this.ustartdatemm,this.ustartdateyyyy,AppConstants.DEFAULT_INPUT_DATE_FORMAT));
 		if (!StringUtils.isEmpty(this.uenddatedd))
 		{
 		    try
 		    {
-		    	setUenddate(AppUtils.parseDate(this.uenddatedd,this.uenddatemm,this.uenddateyyyy,DEFAULT_INPUT_DATE_FORMAT));
+		    	setUenddate(AppUtils.parseDate(this.uenddatedd,this.uenddatemm,this.uenddateyyyy,AppConstants.DEFAULT_INPUT_DATE_FORMAT));
 		    }
 		    catch (Exception e)
 		    {

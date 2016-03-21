@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,11 +36,24 @@ public class RoleRestService
 
 
     @RequestMapping(value = RoleConstants.ADDPAGEURL, method = RequestMethod.POST)
-    public String associateUsersWithRole(@ModelAttribute("userrole") UserRole userrole, Model model)
+    public String associateUsersWithRoles(@ModelAttribute("userrole") UserRole userrole, Model model)
     {
+    	for (UserRole role:userrole.getAllroles())
+    	{
+    		try 
+    		{
+				role.add();
+			} 
+    		catch (Exception e) 
+    		{
+				return RoleConstants.ADDPAGE;
+			}
+    	}
+    	
 		return "addconfirm";
     }
 
+    
 //    @InitBinder
 //    public void initBinder(WebDataBinder dataBinder)
 //    {
