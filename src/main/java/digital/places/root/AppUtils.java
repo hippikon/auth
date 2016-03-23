@@ -1,8 +1,8 @@
 package digital.places.root;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.sql.DataSource;
 

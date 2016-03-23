@@ -1,8 +1,8 @@
 package digital.places.user;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;

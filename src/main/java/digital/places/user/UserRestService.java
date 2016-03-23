@@ -75,7 +75,7 @@ public class UserRestService
     @InitBinder
     public void initBinder(WebDataBinder dataBinder)
     {
-	dataBinder.setRequiredFields(new String[] { "username","ufname", "ulname", "udobdd", "ustartdatedd","enabled", "uemail", "password", "ulocation"});
-	dataBinder.registerCustomEditor(String.class, new StringTrimmerEditor(false));
+		dataBinder.setRequiredFields(new String[] { "username","ufname", "ulname", "udobdd", "ustartdatedd","enabled", "uemail", "password", "ulocation"});
+		dataBinder.registerCustomEditor(String.class, new StringTrimmerEditor(false));
     }
 }

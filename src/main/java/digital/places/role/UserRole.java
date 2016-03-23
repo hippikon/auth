@@ -1,8 +1,9 @@
 package digital.places.role;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -142,28 +143,33 @@ public class UserRole implements Serializable
 
     int add() throws Exception
     {
-    	if (upsertid == -1)
+		DataService dataService = getDataService();
+    	if ("on".equals(strenabled))
+    	{
+    		enabled = 1;
+    	}
+    	else
+    	{
+    		enabled = 0;
+    	}
+
+    	if (upsertid == -1 && "on".equals(selected))
     	{
 			//For add page - readonly view of existing records in case of errors
     		selected = "";
     		
         	validateThis();
-        	if ("on".equals(strenabled))
-        	{
-        		enabled = 1;
-        	}
-        	else
-        	{
-        		enabled = 0;
-        	}
-    		DataService dataService = getDataService();
     		dataService.create(this);
     		return 1;
     	}
     	else
     	{
-			//For add page - readonly view of existing records in case of errors
     		selected = "checked";
+			//For add page - readonly view of existing records in case of errors
+    		if (enabled == 0)
+    		{
+        		dataService.update(this);
+    		}
     	}
     	return 0;
     }

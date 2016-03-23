@@ -28,8 +28,18 @@ public class DataService
     	dataStore.getEntityManager().persist(obj);
     }
 
+    public void update(final Object obj)
+    {
+    	dataStore.getEntityManager().merge(obj);
+    }
+
     public List query(final String queryString)
     {
     	return dataStore.getEntityManager().createQuery(queryString).getResultList();
+    }
+
+    public void delete(final Object obj)
+    {
+    	dataStore.getEntityManager().remove(obj);
     }
 }
