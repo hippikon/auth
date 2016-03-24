@@ -2,6 +2,7 @@ package digital.places.user;
 
 import java.io.Serializable;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -30,7 +31,8 @@ public class User implements Serializable
      */
     private static final long serialVersionUID = 1L;
 
-    public static final Map<String,String> ULOCATIONS = new HashMap<String,String>();
+
+	public static final Map<String,String> ULOCATIONS = new HashMap<String,String>();
     static
     {
 		ULOCATIONS.put("1","ROLLING MEADOWS, IL");
@@ -112,18 +114,59 @@ public class User implements Serializable
     @Column(columnDefinition = "ENUM('ROLLING MEADOWS, IL','WILMINGTON, DE','RICHMOND, VA')")
     private String ulocation = ULOCATIONS.get("1");
     
-    private DataService getDataService()
+    @Transient
+    private List<User> cluster;
+    
+	private DataService getDataService()
     {
 		return (DataService) AppContextJavaProvider.getApplicationContext().getBean("dataService");
     }
     
-    List<User> findByUsername(String username)
+    List<User> findAllByUsername(String username)
     {
     	String sql = "select u from User u where username like '%"+StringUtils.trimAllWhitespace(username)+"%'";
 		DataService dataService = getDataService();
     	return (List<User>)dataService.query(sql);
     }
     
+    User findInDatastore()
+    {
+    	String sql = "select u from User u where username = '"+StringUtils.trimAllWhitespace(username)+"'";
+		DataService dataService = getDataService();
+		List<User> users = (List<User>)dataService.query(sql);
+    	return users.get(0);
+    }
+
+    User prepUpdate()
+    {
+		SimpleDateFormat spf = new SimpleDateFormat("d"); 
+    	if (ustartdate != null)
+    	{
+    		setUstartdatedd(spf.format(ustartdate));
+    		spf = new SimpleDateFormat("MMM"); 
+    		setUstartdatemm(spf.format(ustartdate));
+    		spf = new SimpleDateFormat("YYYY"); 
+    		setUstartdatemm(spf.format(ustartdate));
+    	}
+
+    	if (uenddate != null)
+    	{
+    		setUenddatedd(spf.format(uenddate));
+    		spf = new SimpleDateFormat("MON"); 
+    		setUenddatemm(spf.format(uenddate));
+    		spf = new SimpleDateFormat("YYYY"); 
+    		setUenddatemm(spf.format(uenddate));
+    	}
+
+    	return this;
+    }
+    
+    public User identify(String inpUsername)
+    {
+        this.username = inpUsername;
+        return this;
+    }
+
     void addToDatastore() throws ParseException 
     {
 	
@@ -384,6 +427,14 @@ public class User implements Serializable
     {
         this.uenddate = uenddate;
     }
+
+    public List<User> getCluster() {
+		return cluster;
+	}
+
+	public void setCluster(List<User> cluster) {
+		this.cluster = cluster;
+	}
 
     
     

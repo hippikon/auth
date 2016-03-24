@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -27,6 +28,19 @@ public class UserRestService
 		User user = new User();
 		model.addAttribute("user", user);
 		return UserConstants.ADDPAGE;
+    }
+
+    @RequestMapping(value = UserConstants.UPDATEPAGEURL, method = RequestMethod.GET)
+    public String viewupdatepage(@RequestParam("username") String username, Model model)
+    {
+		if (StringUtils.isEmpty(username))
+		{
+		    return "redirect:/user/search";
+		}
+
+		User user = new User().identify(username).findInDatastore().prepUpdate();
+		model.addAttribute("user", user);
+		return UserConstants.UPDATEPAGE;
     }
 
     @RequestMapping(value = UserConstants.ADDPAGEURL, method = RequestMethod.POST)
@@ -61,7 +75,7 @@ public class UserRestService
     public String search(@RequestParam(value = "username") String username, Model model) throws SQLException, ParseException
     {
     	User user = new User();
-    	List<User> searchResults = user.findByUsername(username);
+    	List<User> searchResults = user.findAllByUsername(username);
     	model.addAttribute("searchUser",searchResults);
     	return AppConstants.SEARCHPAGE;
     }
@@ -75,7 +89,7 @@ public class UserRestService
     @InitBinder
     public void initBinder(WebDataBinder dataBinder)
     {
-		dataBinder.setRequiredFields(new String[] { "username","ufname", "ulname", "udobdd", "ustartdatedd","enabled", "uemail", "password", "ulocation"});
+		dataBinder.setRequiredFields(new String[] { "username","ufname", "ulname", "udobdd","udobmm", "udobyyyy","ustartdatedd","ustartdatemm","ustartdateyyyy","enabled", "uemail", "password", "ulocation"});
 		dataBinder.registerCustomEditor(String.class, new StringTrimmerEditor(false));
     }
 }
