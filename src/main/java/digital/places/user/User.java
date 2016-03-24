@@ -124,30 +124,16 @@ public class User implements Serializable
     	return (List<User>)dataService.query(sql);
     }
     
-//    public User findThisOne(String username) {
-//	if (userProps == null)
-//	{
-//	    userProps = new UserProps();
-//	}
-//	 
-//        return userProps.entityManager.find(User.class, username);
-//    }
-
-//    @SuppressWarnings("unchecked")
-//    public List<User> findAllUsers() {
-//        return entityManager.createQuery("from " + User.class.getName()).getResultList();
-//    }
-//
     void addToDatastore() throws ParseException 
     {
 	
-		setUdob(AppUtils.parseDate(this.udobdd,this.udobmm,this.udobyyyy,AppConstants.DEFAULT_INPUT_DATE_FORMAT));
-		setUstartdate(AppUtils.parseDate(this.ustartdatedd,this.ustartdatemm,this.ustartdateyyyy,AppConstants.DEFAULT_INPUT_DATE_FORMAT));
+		setUdob(AppUtils.parseDate(this.udobdd,this.udobmm,this.udobyyyy));
+		setUstartdate(AppUtils.parseDate(this.ustartdatedd,this.ustartdatemm,this.ustartdateyyyy));
 		if (!StringUtils.isEmpty(this.uenddatedd))
 		{
 		    try
 		    {
-		    	setUenddate(AppUtils.parseDate(this.uenddatedd,this.uenddatemm,this.uenddateyyyy,AppConstants.DEFAULT_INPUT_DATE_FORMAT));
+		    	setUenddate(AppUtils.parseDate(this.uenddatedd,this.uenddatemm,this.uenddateyyyy));
 		    }
 		    catch (Exception e)
 		    {
@@ -158,14 +144,6 @@ public class User implements Serializable
 		dataService.create(this);
     }
     
-//    public User updateMe() {
-//        return entityManager.merge(User.class);
-//    }
-//
-//    public void deleteMe() {
-//	entityManager.remove(this);
-//    }
-
     public String getUsername()
     {
         return username;

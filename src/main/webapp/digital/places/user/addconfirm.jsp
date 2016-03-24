@@ -15,7 +15,8 @@
 	<td>Auth - Confirm User Added<br/>
 	<form:form method="get" action="/auth/role/add" modelAttribute ="username" >
 		<input name="username" value="${username}" readonly/> added successfully
-		<input type="submit" />
+		<input type="submit" name="Add Roles"/>
+
 	</form:form>
 	</td>
 	</tr>

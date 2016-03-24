@@ -20,10 +20,10 @@ public class AppUtils
 	}
     }
     
-    public static Date parseDate(String day, String month, String year, String format) throws ParseException
+    public static Date parseDate(String day, String month, String year) throws ParseException
     {
 		Date outputDate = null;
-		if (!StringUtils.isEmpty(day) && !StringUtils.isEmpty(month) &&!StringUtils.isEmpty(year) && !StringUtils.isEmpty(format))
+		if (!StringUtils.isEmpty(day) && !StringUtils.isEmpty(month) &&!StringUtils.isEmpty(year))
 		{
 		    Calendar c = Calendar.getInstance();
 		    c.set(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));

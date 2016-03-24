@@ -16,8 +16,6 @@ public class AppConstants
 
     public static final LinkedHashMap<String,String> UYYYY = new LinkedHashMap<String,String>();
 
-    public static final String DEFAULT_INPUT_DATE_FORMAT = "MM/dd/yyyy";
-
     static
     {
     	UYYYY.put("","YYYY");
@@ -69,19 +67,19 @@ public class AppConstants
     
     static
     {
-		UMM.put("","MM");
-		UMM.put(String.valueOf(1),String.valueOf(1));
-		UMM.put(String.valueOf(2),String.valueOf(2));
-		UMM.put(String.valueOf(3),String.valueOf(3));
-		UMM.put(String.valueOf(4),String.valueOf(4));
-		UMM.put(String.valueOf(5),String.valueOf(5));
-		UMM.put(String.valueOf(6),String.valueOf(6));
-		UMM.put(String.valueOf(7),String.valueOf(7));
-		UMM.put(String.valueOf(8),String.valueOf(8));
-		UMM.put(String.valueOf(9),String.valueOf(9));
-		UMM.put(String.valueOf(10),String.valueOf(10));
-		UMM.put(String.valueOf(11),String.valueOf(11));
-		UMM.put(String.valueOf(12),String.valueOf(12));
+		UMM.put("","MMM");
+		UMM.put(String.valueOf(0),"JAN");
+		UMM.put(String.valueOf(1),"FEB");
+		UMM.put(String.valueOf(2),"MAR");
+		UMM.put(String.valueOf(3),"APR");
+		UMM.put(String.valueOf(4),"MAY");
+		UMM.put(String.valueOf(5),"JUN");
+		UMM.put(String.valueOf(6),"JUL");
+		UMM.put(String.valueOf(7),"AUG");
+		UMM.put(String.valueOf(8),"SEP");
+		UMM.put(String.valueOf(9),"OCT");
+		UMM.put(String.valueOf(10),"NOV");
+		UMM.put(String.valueOf(11),"DEC");
     }
 
 }

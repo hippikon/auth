@@ -24,9 +24,9 @@ public class UserRestService
     @RequestMapping(value = UserConstants.ADDPAGEURL, method = RequestMethod.GET)
     public String viewaddpage(Model model)
     {
-	User user = new User();
-	model.addAttribute("user", user);
-	return UserConstants.ADDPAGE;
+		User user = new User();
+		model.addAttribute("user", user);
+		return UserConstants.ADDPAGE;
     }
 
     @RequestMapping(value = UserConstants.ADDPAGEURL, method = RequestMethod.POST)
@@ -48,7 +48,7 @@ public class UserRestService
 		    model.addAttribute("error","Unexpected error occured");
 		    return UserConstants.ADDPAGE;
 		}
-		return "addconfirm";
+		return UserConstants.ADDCONFIRMPAGE;
     }
 
     @RequestMapping(value = AppConstants.SEARCHPAGEURL, method = RequestMethod.GET)

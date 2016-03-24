@@ -141,6 +141,11 @@ public class UserRole implements Serializable
 		return false;
 	}
 
+	@Override
+	public int hashCode() {
+		return 1;
+	}
+
     int add() throws Exception
     {
 		DataService dataService = getDataService();
@@ -168,7 +173,8 @@ public class UserRole implements Serializable
 			//For add page - readonly view of existing records in case of errors
     		if (enabled == 0)
     		{
-        		dataService.update(this);
+        		setRoleenddate(Calendar.getInstance().getTime());
+    			dataService.update(this);
     		}
     	}
     	return 0;
@@ -178,10 +184,10 @@ public class UserRole implements Serializable
     {		
 	    try
 	    {
-	    	setRolestartdate(AppUtils.parseDate(this.rolesddd,this.rolesdmm,this.rolesdyyyy,AppConstants.DEFAULT_INPUT_DATE_FORMAT));
+	    	setRolestartdate(AppUtils.parseDate(this.rolesddd,this.rolesdmm,this.rolesdyyyy));
 			if (!StringUtils.isEmpty(this.roleeddd))
 			{
-			    setRoleenddate(AppUtils.parseDate(this.roleeddd,this.roleedmm,this.roleedyyyy,AppConstants.DEFAULT_INPUT_DATE_FORMAT));
+			    setRoleenddate(AppUtils.parseDate(this.roleeddd,this.roleedmm,this.roleedyyyy));
 		    }
 		}
 	    catch (Exception e)
@@ -199,11 +205,6 @@ public class UserRole implements Serializable
 	public void setRoleName(String roleName) 
 	{
 		this.roleName = roleName;
-	}
-
-	@Override
-	public int hashCode() {
-		return 1;
 	}
 
 	public List<UserRole> getAllroles() {
