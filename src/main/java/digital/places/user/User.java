@@ -3,6 +3,7 @@ package digital.places.user;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -134,31 +135,77 @@ public class User implements Serializable
     	String sql = "select u from User u where username = '"+StringUtils.trimAllWhitespace(username)+"'";
 		DataService dataService = getDataService();
 		List<User> users = (List<User>)dataService.query(sql);
-    	return users.get(0);
+		if (users != null && users.size() > 0)
+		{
+			dissolve(users.get(0));
+		}
+    	return this;
     }
 
     User prepUpdate()
     {
-		SimpleDateFormat spf = new SimpleDateFormat("d"); 
+    	Calendar cal = Calendar.getInstance();
+    	if (udob != null)
+    	{
+        	cal.setTime(udob);
+    		udobdd = String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
+    		udobmm = String.valueOf(cal.get(Calendar.MONTH));
+    		udobyyyy = String.valueOf(cal.get(Calendar.YEAR));
+    	}
+
     	if (ustartdate != null)
     	{
-    		setUstartdatedd(spf.format(ustartdate));
-    		spf = new SimpleDateFormat("MMM"); 
-    		setUstartdatemm(spf.format(ustartdate));
-    		spf = new SimpleDateFormat("YYYY"); 
-    		setUstartdatemm(spf.format(ustartdate));
+        	cal.setTime(ustartdate);
+    		ustartdatedd = String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
+    		ustartdatemm = String.valueOf(cal.get(Calendar.MONTH));
+    		ustartdateyyyy = String.valueOf(cal.get(Calendar.YEAR));
     	}
 
     	if (uenddate != null)
     	{
-    		setUenddatedd(spf.format(uenddate));
-    		spf = new SimpleDateFormat("MON"); 
-    		setUenddatemm(spf.format(uenddate));
-    		spf = new SimpleDateFormat("YYYY"); 
-    		setUenddatemm(spf.format(uenddate));
+        	cal.setTime(uenddate);
+    		uenddatedd = String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
+    		uenddatemm = String.valueOf(cal.get(Calendar.MONTH));
+    		uenddateyyyy = String.valueOf(cal.get(Calendar.YEAR));
     	}
 
     	return this;
+    }
+    
+    void update() throws ParseException
+    {
+    	prepStore();
+		DataService dataService = getDataService();
+		dataService.update(this);
+    }
+    
+    private void dissolve(Object obj)
+    {
+    	if (obj instanceof User)
+    	{
+    		User user = (User) obj;
+    		this.cluster = user.getCluster();
+    		this.enabled = user.getEnabled();
+    		this.password = user.getPassword();
+    		this.udob = user.getUdob();
+    		this.udobdd = user.getUdobdd();
+    		this.udobmm = user.getUdobmm();
+    		this.udobyyyy = user.getUdobyyyy();
+    		this.uemail = user.getUemail();
+    		this.uenddate = user.getUenddate();
+    		this.uenddatedd = user.getUenddatedd();
+    		this.uenddatemm = user.getUenddatemm();
+    		this.uenddateyyyy = user.getUenddateyyyy();
+    		this.ufname = user.getUfname();
+    		this.ulname = user.getUlname();
+    		this.ulocation = user.getUlocation();
+    		this.umname = user.getUmname();
+    		this.username = user.getUsername();
+    		this.ustartdate = user.getUstartdate();
+    		this.ustartdatedd = user.getUstartdatedd();
+    		this.ustartdatemm = user.getUstartdatemm();
+    		this.ustartdateyyyy = user.getUstartdateyyyy();
+    	}
     }
     
     public User identify(String inpUsername)
@@ -169,7 +216,13 @@ public class User implements Serializable
 
     void addToDatastore() throws ParseException 
     {
-	
+    	prepStore();
+		DataService dataService = getDataService();
+		dataService.create(this);
+    }
+    
+    void prepStore() throws ParseException
+    {
 		setUdob(AppUtils.parseDate(this.udobdd,this.udobmm,this.udobyyyy));
 		setUstartdate(AppUtils.parseDate(this.ustartdatedd,this.ustartdatemm,this.ustartdateyyyy));
 		if (!StringUtils.isEmpty(this.uenddatedd))
@@ -183,8 +236,6 @@ public class User implements Serializable
 		    	e.printStackTrace();
 		    }
 		}
-		DataService dataService = getDataService();
-		dataService.create(this);
     }
     
     public String getUsername()

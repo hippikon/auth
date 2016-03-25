@@ -13,7 +13,7 @@ class UserConstants
     static final String VIEWALLPAGE = "viewall";
     static final String VIEWALLPAGEURL = "/viewall";
     
-    static final String ADDCONFIRMPAGE = "addconfirm";
+    static final String CONFIRMPAGE = "confirm";
 
 
     public static final LinkedHashMap<String,String> UDOBY = new LinkedHashMap<String,String>();

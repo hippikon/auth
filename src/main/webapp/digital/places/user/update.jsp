@@ -21,15 +21,21 @@
 	</c:if>	
 	</div>
 	<form:form method="post" modelAttribute ="user" >
-		Login : ${user.username} 
-		<input type="hidden" path="username" value="${user.username}" /><br/>
+		Login* : <form:input path="username" /> 
+		<form:errors path="username" cssStyle="color:red;"/><br/>
 		First Name* : <form:input path="ufname" /> 
 		<form:errors path="ufname" cssStyle="color:red;"/><br/>
 		Middle Name : <form:input path="umname" /> <br/>
 		Last Name* : <form:input path="ulname" />  
 		<form:errors path="ulname" cssStyle="color:red;"/><br/>
-		Date of Birth* : ${user.udob}<br/>
-		<input type="hidden" path="udob" value="<fmt:formatDate value="${user.udob}" pattern="dd-MM-yyyy" />" /><br/>
+		Date of Birth* : <form:select path="udobdd">
+		    <form:options items="${user.UDD}" />
+		</form:select>/<form:select path="udobmm">
+		    <form:options items="${user.UMM}" />
+		</form:select>/<form:select path="udobyyyy">
+		    <form:options items="${user.UDOBY}" />
+		</form:select>  
+		<form:errors path="udobdd" cssStyle="color:red;"/><br/>
 		Start Date* : <form:select path="ustartdatedd">
 		    <form:options items="${user.UDD}" />
 		</form:select>/<form:select path="ustartdatemm">

@@ -30,19 +30,6 @@ public class UserRestService
 		return UserConstants.ADDPAGE;
     }
 
-    @RequestMapping(value = UserConstants.UPDATEPAGEURL, method = RequestMethod.GET)
-    public String viewupdatepage(@RequestParam("username") String username, Model model)
-    {
-		if (StringUtils.isEmpty(username))
-		{
-		    return "redirect:/user/search";
-		}
-
-		User user = new User().identify(username).findInDatastore().prepUpdate();
-		model.addAttribute("user", user);
-		return UserConstants.UPDATEPAGE;
-    }
-
     @RequestMapping(value = UserConstants.ADDPAGEURL, method = RequestMethod.POST)
     public String create(@ModelAttribute("user") User user, BindingResult result, Model model)
     {
@@ -62,7 +49,7 @@ public class UserRestService
 		    model.addAttribute("error","Unexpected error occured");
 		    return UserConstants.ADDPAGE;
 		}
-		return UserConstants.ADDCONFIRMPAGE;
+		return UserConstants.CONFIRMPAGE;
     }
 
     @RequestMapping(value = AppConstants.SEARCHPAGEURL, method = RequestMethod.GET)
@@ -84,6 +71,41 @@ public class UserRestService
     public String viewall(Model model)
     {
     	return UserConstants.VIEWALLPAGE;
+    }
+
+    @RequestMapping(value = UserConstants.UPDATEPAGEURL, method = RequestMethod.GET)
+    public String viewupdatepage(@RequestParam("username") String username, Model model)
+    {
+		if (StringUtils.isEmpty(username))
+		{
+		    return "redirect:/user/search";
+		}
+
+		User user = new User().identify(username).findInDatastore().prepUpdate();
+		model.addAttribute("user", user);
+		return UserConstants.UPDATEPAGE;
+    }
+    
+    @RequestMapping(value = UserConstants.UPDATEPAGEURL, method = RequestMethod.POST)
+    public String update(@ModelAttribute("user") User user, BindingResult result, Model model)
+    {
+		if (result.hasErrors())
+		{
+		    return UserConstants.UPDATEPAGE;
+		}
+	
+		try
+		{
+		    user.update();
+		    model.addAttribute("username",user.getUsername());
+		}
+		catch (Exception e)
+		{
+		    e.printStackTrace();
+		    model.addAttribute("error","Unexpected error occured");
+		    return UserConstants.ADDPAGE;
+		}
+		return UserConstants.CONFIRMPAGE;
     }
 
     @InitBinder
