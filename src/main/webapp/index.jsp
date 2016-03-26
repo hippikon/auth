@@ -19,15 +19,15 @@
 		</tr>
 		<tr>
 			<td align="center" >
-				View all users
+				Update user
 			</td>
 			<td>
-				<a href="http://localhost:8080/auth/user/viewall">http://localhost:8080/auth/user/viewall</a>
+				<a href="http://localhost:8080/auth/user/update">http://localhost:8080/auth/user/update</a>
 			</td>
 		</tr>
 		<tr>
 			<td align="center" >
-				Search users
+				Search for user
 			</td>
 			<td>
 				<a href="http://localhost:8080/auth/user/search">http://localhost:8080/auth/user/search</a>

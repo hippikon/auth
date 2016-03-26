@@ -40,7 +40,7 @@
 		
 		<secure:form-login 
 		    login-page="/o/login" 
-		    default-target-url="/user/viewall" 
+		    default-target-url="/" 
 		    login-processing-url="/o/j_spring_security_check"
 			authentication-failure-url="/o/login?error" 
 			username-parameter="username"

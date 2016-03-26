@@ -26,7 +26,7 @@
 		    <br>
 		</c:forEach>
 
-		<input type="hidden" id="uname" value=""/>
+		<input type="hidden" name="uname" id="uname" value=""/>
 		<input type="submit" value="Edit Roles" /> 
 		<input type="submit" value="Update User" onClick="alert(document.getElementById('uname').value);document.forms(1).action='/auth/user/update'" /> 
 	</form:form>

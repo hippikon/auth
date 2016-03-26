@@ -20,6 +20,7 @@
 		<tr>
 			<td colspan=3>
 			Username : ${userrole.username}
+			<form:input type="hidden" path="username" value="${userrole.username}" />
 			</td>
 		</tr>
 		<tr>
