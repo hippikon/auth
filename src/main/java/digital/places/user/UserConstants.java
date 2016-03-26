@@ -10,9 +10,6 @@ class UserConstants
     static final String UPDATEPAGE = "update";
     static final String UPDATEPAGEURL = "/update";
 
-    static final String VIEWALLPAGE = "viewall";
-    static final String VIEWALLPAGEURL = "/viewall";
-    
     static final String CONFIRMPAGE = "confirm";
 
 

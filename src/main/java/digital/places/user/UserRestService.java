@@ -67,12 +67,6 @@ public class UserRestService
     	return AppConstants.SEARCHPAGE;
     }
 
-    @RequestMapping(value = UserConstants.VIEWALLPAGEURL, method = RequestMethod.GET)
-    public String viewall(Model model)
-    {
-    	return UserConstants.VIEWALLPAGE;
-    }
-
     @RequestMapping(value = UserConstants.UPDATEPAGEURL, method = RequestMethod.GET)
     public String viewupdatepage(@RequestParam("uname") String uname, Model model)
     {

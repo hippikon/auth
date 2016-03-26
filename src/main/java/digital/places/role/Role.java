@@ -1,18 +1,13 @@
 package digital.places.role;
 
 import java.io.Serializable;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import org.springframework.util.StringUtils;
 
 import digital.places.root.AppContextJavaProvider;
 import digital.places.root.DataService;
@@ -64,13 +59,6 @@ public class Role implements Serializable
 	    return (List<Role>)dataService.query(DEFAULT_FINDALLVALID_QUERY);
 	}
 
-	public List<Role> findAll(String username) 
-	{
-		DataService dataService = getDataService();
-	    return (List<Role>) dataService.query("select r from UserRole ur, Role r where ur.roleid = r.roleid and r.enabled=1 and ur.username like '%"+StringUtils.trimAllWhitespace(username)+"%'");
-	}
-
-	
     void addToDatastore() 
     {
 		DataService dataService = getDataService();
