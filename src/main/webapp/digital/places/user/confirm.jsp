@@ -13,7 +13,7 @@
 	<table border="1" cellpadding="15" width="80%" align="center">
 	<tr>
 	<td>Auth - Confirm User Added<br/>
-	<form:form method="get" action="/auth/role/add" modelAttribute ="username" >
+	<form:form method="get" action="/auth/role/add" modelAttribute ="uname" >
 		<input name="username" value="${username}" readonly/> added successfully
 		<input type="submit" name="Add Roles"/>
 

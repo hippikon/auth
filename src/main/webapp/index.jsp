@@ -6,6 +6,7 @@
 <title>Auth - Sitemap</title>
 </head>
 <body>
+	<jsp:include page="/digital/places/home.jsp" />
 	<h3 align="center">Sitemap</h3>
 	<table width="50%" align="center" border="1">
 		<tr>

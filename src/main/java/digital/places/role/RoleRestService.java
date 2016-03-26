@@ -23,16 +23,16 @@ public class RoleRestService
     private static Map<Integer, Role> roleMap;
 
     @RequestMapping(value = RoleConstants.ADDPAGEURL, method = RequestMethod.GET)
-    public String viewaddpage(@RequestParam("username") String username, Model model)
+    public String viewaddpage(@RequestParam("uname") String uname, Model model)
     {
-		if (StringUtils.isEmpty(username))
+		if (StringUtils.isEmpty(uname))
 		{
 		    return "redirect:/user/search";
 		}
 
 		UserRole userrole = new UserRole();
-		userrole.setUsername(username);
-		userrole.setAllroles(userrole.findAllPotential(username));
+		userrole.setUsername(uname);
+		userrole.setAllroles(userrole.findAllPotential(uname));
 		model.addAttribute("userrole", userrole);
 
 		return RoleConstants.ADDPAGE;

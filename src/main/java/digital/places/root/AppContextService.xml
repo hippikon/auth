@@ -28,13 +28,13 @@
     <!-- enable use-expressions -->
 	<secure:http auto-config="true" use-expressions="true">
 		
+		<secure:intercept-url pattern="/*" access="hasAnyRole('ROLE_ADDER','ROLE_ADMIN','ROLE_USER','ROLE_GUEST','ROLE_VENDOR','ROLE_DEFAULT')" />
 		<secure:intercept-url pattern="/user/add*" access="hasRole('ROLE_ADDER')" />
 		<secure:intercept-url pattern="/user/viewall*" access="hasAnyRole('ROLE_ADDER','ROLE_ADMIN')" />
-		<secure:intercept-url pattern="/role/add*" access="hasRole('ROLE_ADDER')" />
 		<secure:intercept-url pattern="/user/search*" access="hasRole('ROLE_ADDER')" />
-		<secure:intercept-url pattern="/role/viewall*" access="hasAnyRole('ROLE_ADDER','ROLE_ADMIN')" />
 		<secure:intercept-url pattern="/user/update*" access="hasAnyRole('ROLE_ADDER','ROLE_ADMIN')" />
-		<secure:intercept-url pattern="/*" access="hasAnyRole('ROLE_ADDER','ROLE_ADMIN','ROLE_USER','ROLE_GUEST','ROLE_VENDOR','ROLE_DEFAULT')" />
+		<secure:intercept-url pattern="/role/add*" access="hasRole('ROLE_ADDER')" />
+		<secure:intercept-url pattern="/role/viewall*" access="hasAnyRole('ROLE_ADDER','ROLE_ADMIN')" />
 		<!-- access denied page -->
 		<secure:access-denied-handler error-page="/o/403" />
 		

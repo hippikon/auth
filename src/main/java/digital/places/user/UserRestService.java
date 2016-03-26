@@ -41,7 +41,7 @@ public class UserRestService
 		try
 		{
 		    user.addToDatastore();
-		    model.addAttribute("username",user.getUsername());
+		    model.addAttribute("uname",user.getUsername());
 		}
 		catch (Exception e)
 		{
@@ -59,10 +59,10 @@ public class UserRestService
     }
     
     @RequestMapping(value = AppConstants.SEARCHPAGEURL, method = RequestMethod.POST)
-    public String search(@RequestParam(value = "username") String username, Model model) throws SQLException, ParseException
+    public String search(@RequestParam(value = "usearch") String usearch, Model model) throws SQLException, ParseException
     {
     	User user = new User();
-    	List<User> searchResults = user.findAllByUsername(username);
+    	List<User> searchResults = user.findAllByUsername(usearch);
     	model.addAttribute("searchUser",searchResults);
     	return AppConstants.SEARCHPAGE;
     }
@@ -74,14 +74,14 @@ public class UserRestService
     }
 
     @RequestMapping(value = UserConstants.UPDATEPAGEURL, method = RequestMethod.GET)
-    public String viewupdatepage(@RequestParam("username") String username, Model model)
+    public String viewupdatepage(@RequestParam("uname") String uname, Model model)
     {
-		if (StringUtils.isEmpty(username))
+		if (StringUtils.isEmpty(uname))
 		{
 		    return "redirect:/user/search";
 		}
 
-		User user = new User().identify(username).findInDatastore().prepUpdate();
+		User user = new User().identify(uname).findInDatastore().prepUpdate();
 		model.addAttribute("user", user);
 		return UserConstants.UPDATEPAGE;
     }

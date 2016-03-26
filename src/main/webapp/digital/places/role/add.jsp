@@ -8,17 +8,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Auth - Add Role</title>
 	<link href='<c:url value="/lib/main.css" />' rel="stylesheet"/>
-	<script language="Javascript">
-		function transfer(srcBox,destBox)
-		{
-			if (srcBox.selectedIndex > -1)
-			{
-				var selOption = srcBox.options[srcBox.selectedIndex];
-				destBox.add(selOption);
-			}	
-		}
-	</script>
-
 </head>
 <body>
 	<jsp:include page="../home.jsp" />

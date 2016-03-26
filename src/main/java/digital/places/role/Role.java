@@ -71,17 +71,6 @@ public class Role implements Serializable
 	}
 
 	
-	public Map<String,String> findAllRoleNames() 
-	{
-		Map<String,String> roleNames = new LinkedHashMap<String,String>();
-		List<Role> roles = findAll();
-		for (Role role:roles)
-		{
-			roleNames.put(String.valueOf(role.getRoleid()), role.getRole());
-		}
-	    return roleNames;
-	}
-
     void addToDatastore() 
     {
 		DataService dataService = getDataService();
