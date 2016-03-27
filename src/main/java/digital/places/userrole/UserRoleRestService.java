@@ -1,4 +1,4 @@
-package digital.places.role;
+package digital.places.userrole;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,19 +11,22 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import digital.places.role.Role;
+import digital.places.root.AppContextJavaProvider;
 
 // Its a servlet
 @Controller
-public class RoleRestService
+public class UserRoleRestService
 {
     private static Integer userNum = new Integer(0);
     private static Map<Integer, Role> roleMap;
 
-    @RequestMapping(value = RoleConstants.ADDPAGEURL, method = RequestMethod.GET)
-    public String viewaddpage(@RequestParam("uname") String uname, Model model)
+    @RequestMapping(value = UserRoleConstants.ADDPAGEURL, method = RequestMethod.GET)
+    public String viewaddpage(@PathVariable String uname, Model model)
     {
 		if (StringUtils.isEmpty(uname))
 		{
@@ -35,11 +38,18 @@ public class RoleRestService
 		userrole.setAllroles(userrole.findAllPotential(uname));
 		model.addAttribute("userrole", userrole);
 
-		return RoleConstants.ADDPAGE;
+		return UserRoleConstants.ADDPAGE;
     }
 
+    @RequestMapping(value = UserRoleConstants.DEFAULTADDPAGEURL, method = RequestMethod.GET)
+    public String redirectToSearch()
+    {
+	    Role role = (Role) AppContextJavaProvider.getApplicationContext().getBean("roleProxy");
+	    role.findAll();
+    	return "redirect:/user/search";
+    }
 
-    @RequestMapping(value = RoleConstants.ADDPAGEURL, method = RequestMethod.POST)
+    @RequestMapping(value = UserRoleConstants.ADDPAGEURL, method = RequestMethod.POST)
     public String associateUsersWithRoles(@ModelAttribute("userrole") UserRole userrole, Model model)
     {
     	for (UserRole role:userrole.getAllroles())
@@ -50,7 +60,7 @@ public class RoleRestService
 			} 
     		catch (Exception e) 
     		{
-				return RoleConstants.ADDPAGE;
+				return UserRoleConstants.ADDPAGE;
 			}
     	}
     	

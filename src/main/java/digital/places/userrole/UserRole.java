@@ -1,4 +1,4 @@
-package digital.places.role;
+package digital.places.userrole;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,6 +16,7 @@ import javax.persistence.Transient;
 
 import org.springframework.util.StringUtils;
 
+import digital.places.role.Role;
 import digital.places.root.AppConstants;
 import digital.places.root.AppContextJavaProvider;
 import digital.places.root.AppUtils;

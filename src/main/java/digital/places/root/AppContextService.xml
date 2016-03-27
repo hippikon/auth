@@ -34,6 +34,7 @@
 		<secure:intercept-url pattern="/user/search*" access="hasRole('ROLE_ADDER')" />
 		<secure:intercept-url pattern="/user/update*" access="hasAnyRole('ROLE_ADDER','ROLE_ADMIN')" />
 		<secure:intercept-url pattern="/role/add*" access="hasRole('ROLE_ADDER')" />
+		<secure:intercept-url pattern="/role/add/*" access="hasRole('ROLE_ADDER')" />
 		<secure:intercept-url pattern="/role/viewall*" access="hasAnyRole('ROLE_ADDER','ROLE_ADMIN')" />
 		<!-- access denied page -->
 		<secure:access-denied-handler error-page="/o/403" />
@@ -67,6 +68,7 @@
         <list>
               <value>digital.places.user</value>
               <value>digital.places.role</value>
+              <value>digital.places.userrole</value>
          </list>
       </property>   
       <property name="jpaVendorAdapter">
@@ -88,6 +90,23 @@
     
    	<bean id="dataStore" class="digital.places.root.DataStore" />
    	<bean id="dataService" class="digital.places.root.DataService" />
+
+	<bean id="role" class="digital.places.role.Role"/>
+	<bean id="beforeFindALlRoles" name="beforeFindALlRoles" class="digital.places.role.BeforeFindAllRoles">
+	</bean>
+
+	<bean id="roleProxy" 
+                 class="org.springframework.aop.framework.ProxyFactoryBean">
+
+		<property name="target" ref="role" />
+
+		<property name="interceptorNames">
+			<list>
+				<value>beforeFindAllRoles</value>
+			</list>
+		</property>
+	</bean>
+
    	
   <!--    <bean id="persistenceExceptionTranslationPostProcessor"
       class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" /> --> 

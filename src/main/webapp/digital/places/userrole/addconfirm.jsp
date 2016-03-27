@@ -14,7 +14,7 @@
 	<jsp:include page="../home.jsp" />
 	<table border="1" cellpadding="15" width="80%" align="center">
 	<tr>
-	<td>Auth - Roles for <b>${userrole.username}</b> added successfully
+	<td>Auth - Roles for <b>${userrole.username}</b> updated successfully
 		<sql:query var="rs" dataSource="jdbc/userie">
 		select r.role,ur.rolestartdate,ur.roleenddate,ur.enabled from user_roles ur, roles r where ur.username = '${userrole.username}' and ur.roleid = r.roleid
 		</sql:query>
