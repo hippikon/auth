@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.client.RestTemplate;
 
 import digital.places.role.Role;
 import digital.places.root.AppContextJavaProvider;
@@ -44,8 +45,10 @@ public class UserRoleRestService
     @RequestMapping(value = UserRoleConstants.DEFAULTADDPAGEURL, method = RequestMethod.GET)
     public String redirectToSearch()
     {
-	    Role role = (Role) AppContextJavaProvider.getApplicationContext().getBean("roleProxy");
-	    role.findAll();
+    	RestTemplate restTemplate = new RestTemplate(); 
+    	String result = restTemplate.getForObject( "http://localhost:8080/auth/rolews/fetch", String.class); 
+    	System.out.println( result);
+    	
     	return "redirect:/user/search";
     }
 
