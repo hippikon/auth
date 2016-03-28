@@ -14,9 +14,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.util.StringUtils;
 
 import digital.places.role.Role;
+import digital.places.role.RoleFacade;
 import digital.places.root.AppConstants;
 import digital.places.root.AppContextJavaProvider;
 import digital.places.root.AppUtils;
@@ -83,7 +86,7 @@ public class UserRole implements Serializable
 
     @Column (columnDefinition = "TINYINT")
     private int enabled = 1;
-
+    
 	void addToDatastore() 
     {
 		DataService dataService = getDataService();
@@ -93,13 +96,13 @@ public class UserRole implements Serializable
 	public List<UserRole> findAll(String user) 
 	{
 		DataService dataService = getDataService();
-		return (List<UserRole>) dataService.query("select ur from UserRole ur, Role r where r.enabled=1 and ur.enabled=1 and ur.roleid = r.roleid and ur.username like '%"+StringUtils.trimAllWhitespace(user)+"%'");
+		return (List<UserRole>) dataService.query("select ur from UserRole ur, Role r where r.enabled=1 and ur.enabled=1 and ur.roleid = r.roleid and ur.username = '"+StringUtils.trimAllWhitespace(user)+"'");
 	}
 
 	public List<UserRole> findAllPotential(String user) 
 	{
-		DataService dataService = getDataService();
-		List<Role> allRoles = (List<Role>)dataService.query(Role.DEFAULT_FINDALLVALID_QUERY);
+		RoleFacade roleFacade = (RoleFacade) AppContextJavaProvider.getApplicationContext().getBean("roleProxy");
+		List<Role> allRoles = roleFacade.fetchAllRoles();
 		List<UserRole> allCurUserRoles = findAll(user);
 		List<UserRole> allPUserRoles = new ArrayList<UserRole>();
 		for (Role role:allRoles)

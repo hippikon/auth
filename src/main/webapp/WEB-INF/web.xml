@@ -8,6 +8,11 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:/digital/places/root/AppContextService.xml</param-value>
 	</context-param>
+    <listener>
+	   <listener-class>
+	        org.springframework.web.context.ContextLoaderListener
+	   </listener-class>
+	</listener>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
@@ -20,7 +25,7 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>classpath:/digital/places/woot/Webroot.xml</param-value>
 		</init-param>
-        <load-on-startup>4</load-on-startup>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>webroot</servlet-name>
@@ -56,11 +61,6 @@
         <servlet-name>userroleservice</servlet-name>
         <url-pattern>/role/*</url-pattern>
     </servlet-mapping>
-    <listener>
-	   <listener-class>
-	        org.springframework.web.context.ContextLoaderListener
-	   </listener-class>
-	</listener>
 	<resource-ref>
     	<description>DB Connection</description>
       	<res-ref-name>jdbc/userie</res-ref-name>

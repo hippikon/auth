@@ -2,7 +2,6 @@ package digital.places.userrole;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -14,18 +13,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.client.RestTemplate;
-
-import digital.places.role.Role;
-import digital.places.root.AppContextJavaProvider;
 
 // Its a servlet
 @Controller
 public class UserRoleRestService
 {
-    private static Integer userNum = new Integer(0);
-    private static Map<Integer, Role> roleMap;
-
     @RequestMapping(value = UserRoleConstants.ADDPAGEURL, method = RequestMethod.GET)
     public String viewaddpage(@PathVariable String uname, Model model)
     {
@@ -45,10 +37,6 @@ public class UserRoleRestService
     @RequestMapping(value = UserRoleConstants.DEFAULTADDPAGEURL, method = RequestMethod.GET)
     public String redirectToSearch()
     {
-    	RestTemplate restTemplate = new RestTemplate(); 
-    	String result = restTemplate.getForObject( "http://localhost:8080/auth/rolews/fetch", String.class); 
-    	System.out.println( result);
-    	
     	return "redirect:/user/search";
     }
 

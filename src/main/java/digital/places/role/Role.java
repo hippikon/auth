@@ -19,6 +19,8 @@ public class Role implements Serializable
     private static final long serialVersionUID = 1L;
     
     public static final String DEFAULT_FINDALLVALID_QUERY = "select r from Role r where r.enabled = 1";
+    
+    static List<Role> allRoles;
 
     @Id
     @GeneratedValue
@@ -53,10 +55,12 @@ public class Role implements Serializable
 		return 1;
 	}
 
-	public List<Role> findAll() 
+	static void findAll(DataService dataService) 
 	{
-		DataService dataService = getDataService();
-	    return (List<Role>)dataService.query(DEFAULT_FINDALLVALID_QUERY);
+		if (allRoles == null)
+		{
+		    allRoles = (List<Role>)dataService.query(DEFAULT_FINDALLVALID_QUERY);
+		}
 	}
 
     void addToDatastore() 

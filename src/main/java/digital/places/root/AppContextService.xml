@@ -91,18 +91,14 @@
    	<bean id="dataStore" class="digital.places.root.DataStore" />
    	<bean id="dataService" class="digital.places.root.DataService" />
 
-	<bean id="role" class="digital.places.role.Role"/>
-	<bean id="beforeFindALlRoles" name="beforeFindALlRoles" class="digital.places.role.BeforeFindAllRoles">
-	</bean>
+	<bean id="roleFacade" class="digital.places.role.RoleFacade"/>
+	<bean id="advice" class="digital.places.role.BeforeFindAllRoles" />
 
-	<bean id="roleProxy" 
-                 class="org.springframework.aop.framework.ProxyFactoryBean">
-
-		<property name="target" ref="role" />
-
+	<bean id="roleProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="roleFacade" />
 		<property name="interceptorNames">
 			<list>
-				<value>beforeFindAllRoles</value>
+				<value>advice</value>
 			</list>
 		</property>
 	</bean>
