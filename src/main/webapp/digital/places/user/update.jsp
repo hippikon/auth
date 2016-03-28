@@ -55,6 +55,7 @@
 		Status* : <form:select path="enabled">
 		    <form:options items="${user.ENABLEDS}" />
 		</form:select>  
+		<form:input type="hidden" path="wasEnabled" value="${wasEnabled}"/>
 		<form:errors path="enabled" cssStyle="color:red;"/><br/>
 		Email* : <form:input path="uemail" /> 
 		<form:errors path="uemail" cssStyle="color:red;"/><br/>

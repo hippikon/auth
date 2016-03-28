@@ -9,7 +9,9 @@
       <attribute value="jar:file:/C:/Programs/mavenrepo/javax/servlet/javax.servlet-api/4.0.0-b01/javax.servlet-api-4.0.0-b01-javadoc.jar!/" name="javadoc_location"/>
     </attributes>
   </classpathentry>
-  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+  <classpathentry kind="var" path="M2_REPO/javax/mail/mail/1.4/mail-1.4.jar" sourcepath="M2_REPO/javax/mail/mail/1.4/mail-1.4-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/javax/activation/activation/1.1/activation-1.1.jar" sourcepath="M2_REPO/javax/activation/activation/1.1/activation-1.1-sources.jar"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-context/4.2.2.RELEASE/spring-context-4.2.2.RELEASE.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-aop/4.2.2.RELEASE/spring-aop-4.2.2.RELEASE.jar"/>
   <classpathentry kind="var" path="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar" sourcepath="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0-sources.jar"/>
@@ -86,6 +88,11 @@
   <classpathentry kind="var" path="M2_REPO/org/springframework/security/spring-security-acl/4.0.3.RELEASE/spring-security-acl-4.0.3.RELEASE.jar" sourcepath="M2_REPO/org/springframework/security/spring-security-acl/4.0.3.RELEASE/spring-security-acl-4.0.3.RELEASE-sources.jar">
     <attributes>
       <attribute value="jar:file:/C:/Programs/mavenrepo/org/springframework/security/spring-security-acl/4.0.3.RELEASE/spring-security-acl-4.0.3.RELEASE-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-context-support/4.2.2.RELEASE/spring-context-support-4.2.2.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-context-support/4.2.2.RELEASE/spring-context-support-4.2.2.RELEASE-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/C:/Programs/mavenrepo/org/springframework/spring-context-support/4.2.2.RELEASE/spring-context-support-4.2.2.RELEASE-javadoc.jar!/" name="javadoc_location"/>
     </attributes>
   </classpathentry>
 </classpath>

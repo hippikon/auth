@@ -2,7 +2,6 @@ package digital.places.user;
 
 import java.io.Serializable;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -20,6 +19,7 @@ import org.springframework.util.StringUtils;
 
 import digital.places.root.AppConstants;
 import digital.places.root.AppContextJavaProvider;
+import digital.places.root.AppMailer;
 import digital.places.root.AppUtils;
 import digital.places.root.DataService;
 
@@ -105,8 +105,11 @@ public class User implements Serializable
     
     @Column (columnDefinition = "TINYINT")
     private int enabled = 1;
+
+    @Transient
+    private int wasEnabled;
     
-    @Column (columnDefinition = "CHAR",length = 55)
+	@Column (columnDefinition = "CHAR",length = 55)
     private String uemail;
     
     @Column (columnDefinition = "VARCHAR",length = 128)
@@ -139,6 +142,7 @@ public class User implements Serializable
 		{
 			dissolve(users.get(0));
 		}
+		wasEnabled = enabled;
     	return this;
     }
 
@@ -175,6 +179,11 @@ public class User implements Serializable
     void update() throws ParseException
     {
     	prepStore();
+    	if (wasEnabled == 1 && enabled == 0)
+    	{
+    		AppMailer appMailer = (AppMailer)AppContextJavaProvider.getApplicationContext().getBean("mailService");
+    		appMailer.sendMail(null, "user "+username+" updated", "status disabled");
+    	}
 		DataService dataService = getDataService();
 		dataService.update(this);
     }
@@ -186,6 +195,7 @@ public class User implements Serializable
     		User user = (User) obj;
     		this.cluster = user.getCluster();
     		this.enabled = user.getEnabled();
+    		this.wasEnabled = user.getWasEnabled();
     		this.password = user.getPassword();
     		this.udob = user.getUdob();
     		this.udobdd = user.getUdobdd();
@@ -485,6 +495,14 @@ public class User implements Serializable
 
 	public void setCluster(List<User> cluster) {
 		this.cluster = cluster;
+	}
+
+    public int getWasEnabled() {
+		return wasEnabled;
+	}
+
+	public void setWasEnabled(int wasEnabled) {
+		this.wasEnabled = wasEnabled;
 	}
 
     

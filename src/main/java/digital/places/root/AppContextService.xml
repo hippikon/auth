@@ -90,6 +90,8 @@
     
    	<bean id="dataStore" class="digital.places.root.DataStore" />
    	<bean id="dataService" class="digital.places.root.DataService" />
+   
+   	<tx:annotation-driven />
 
 	<bean id="roleFacade" class="digital.places.role.RoleFacade"/>
 	<bean id="advice" class="digital.places.role.BeforeFindAllRoles" />
@@ -103,8 +105,27 @@
 		</property>
 	</bean>
 
-   	
-  <!--    <bean id="persistenceExceptionTranslationPostProcessor"
-      class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" /> --> 
-   <tx:annotation-driven />
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com"/>
+        <property name="port" value="587"/>
+        <property name="username" value="tsetseing@gmail.com"/>
+        <property name="password" value="shooflyshoo"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.smtp.ssl.enable">true</prop>
+                <prop key="mail.debug">true</prop>
+            </props>
+        </property>
+    </bean>
+     
+    <!-- You can have some pre-configured messagess also which are ready to send -->
+    <bean id="preConfiguredMessage" class="org.springframework.mail.SimpleMailMessage">
+        <property name="to" value="rmadhuri2015"></property>
+        <property name="from" value="tsetseing@gmail.com"></property>
+        <property name="subject" value="Hello World"/>
+    </bean>
+    
 </beans>
