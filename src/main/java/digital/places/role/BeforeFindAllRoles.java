@@ -5,9 +5,10 @@ import java.lang.reflect.Method;
 import org.springframework.aop.MethodBeforeAdvice;
 
 import digital.places.root.AppContextJavaProvider;
+import digital.places.root.AuthObject;
 import digital.places.root.DataService;
 
-public class BeforeFindAllRoles implements MethodBeforeAdvice
+public class BeforeFindAllRoles extends AuthObject implements MethodBeforeAdvice
 {
 	@Override
 	public void before(Method method, Object[] args, Object target)

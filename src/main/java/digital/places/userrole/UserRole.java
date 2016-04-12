@@ -18,19 +18,18 @@ import org.springframework.util.StringUtils;
 
 import digital.places.role.Role;
 import digital.places.role.RoleFacade;
-import digital.places.root.AppConstants;
 import digital.places.root.AppContextJavaProvider;
-import digital.places.root.AppUtils;
+import digital.places.root.AuthObject;
 import digital.places.root.DataService;
 
 @Entity
 @Table (name="user_roles")
-public class UserRole implements Serializable
+public class UserRole extends AuthObject implements Serializable
 {
     private static final long serialVersionUID = 1L;
-    public static final LinkedHashMap<String,String> UDD = AppConstants.UDD;
-    public static final LinkedHashMap<String,String> UMM = AppConstants.UMM;
-    public static final LinkedHashMap<String,String> UYYYY = AppConstants.UYYYY;
+    public static final LinkedHashMap<String,String> UDD = AuthObject.UDD;
+    public static final LinkedHashMap<String,String> UMM = AuthObject.UMM;
+    public static final LinkedHashMap<String,String> UYYYY = AuthObject.UYYYY;
 
     @Id
     @GeneratedValue
@@ -186,10 +185,10 @@ public class UserRole implements Serializable
     {		
 	    try
 	    {
-	    	setRolestartdate(AppUtils.parseDate(this.rolesddd,this.rolesdmm,this.rolesdyyyy));
+	    	setRolestartdate(parseDate(this.rolesddd,this.rolesdmm,this.rolesdyyyy));
 			if (!StringUtils.isEmpty(this.roleeddd))
 			{
-			    setRoleenddate(AppUtils.parseDate(this.roleeddd,this.roleedmm,this.roleedyyyy));
+			    setRoleenddate(parseDate(this.roleeddd,this.roleedmm,this.roleedyyyy));
 		    }
 		}
 	    catch (Exception e)

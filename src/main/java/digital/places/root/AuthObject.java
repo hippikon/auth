@@ -1,9 +1,14 @@
 package digital.places.root;
 
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class AppConstants
+import org.springframework.util.StringUtils;
+
+public abstract class AuthObject
 {
     public static final String PAGE403 = "403";
     public static final String PAGE403URL = "/403";
@@ -14,6 +19,20 @@ public class AppConstants
     public static final String SEARCHPAGEURL ="/search";
     public static final String SEARCHPAGE ="search";
 
+    public static final String ADDPAGE = "add";
+    public static final String ADDPAGEURL = "/add";
+
+    public static final String UPDATEPAGE = "update";
+    public static final String UPDATEPAGEURL = "/update";
+
+    public static final String CONFIRMPAGE = "confirm";
+
+    public static final String ADDPAGERESTURL = "/add/{uname}";
+
+    public static final String VIEWALLPAGE = "viewall";
+    public static final String VIEWALLPAGEURL = "/viewall";
+
+    
     public static final LinkedHashMap<String,String> UYYYY = new LinkedHashMap<String,String>();
 
     static
@@ -82,4 +101,32 @@ public class AppConstants
 		UMM.put(String.valueOf(11),"DEC");
     }
 
+    public static final LinkedHashMap<String,String> UDOBY = new LinkedHashMap<String,String>();
+    
+    static
+    {
+		UDOBY.put("","YYYY");
+		for (int i=1915; i <1999; i++)
+		{
+			UDOBY.put(String.valueOf(i),String.valueOf(i));
+			
+		}
+    }
+    
+    public static Date parseDate(final String day, final String month, final String year) throws ParseException
+    {
+		Date outputDate = null;
+		if (!StringUtils.isEmpty(day) && !StringUtils.isEmpty(month) &&!StringUtils.isEmpty(year))
+		{
+		    Calendar c = Calendar.getInstance();
+		    c.set(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+		    outputDate = new Date(c.getTimeInMillis());
+		}
+		else
+		{
+			throw new ParseException("invalid date",0);
+		}
+		return outputDate;
+    }
+    
 }

@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class DataService
+public class DataService extends AuthObject
 {
     DataStore dataStore;
 

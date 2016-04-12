@@ -6,7 +6,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class DataStore
+public class DataStore extends AuthObject
 {
     @PersistenceContext
     private EntityManager entityManager;

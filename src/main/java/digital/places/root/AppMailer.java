@@ -6,7 +6,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Component;
  
 @Component("mailService")
-public class AppMailer 
+public class AppMailer extends AuthObject
 {          
     @Autowired
     private MailSender mailSender;

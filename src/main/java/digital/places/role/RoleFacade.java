@@ -2,7 +2,9 @@ package digital.places.role;
 
 import java.util.List;
 
-public class RoleFacade
+import digital.places.root.AuthObject;
+
+public class RoleFacade extends AuthObject
 {
 
 	public List<Role> fetchAllRoles()

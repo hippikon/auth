@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import digital.places.root.AuthObject;
+
 // Its a servlet
 @Controller
-public class UserRoleRestService
+public class UserRoleRestService extends AuthObject
 {
-    @RequestMapping(value = UserRoleConstants.ADDPAGEURL, method = RequestMethod.GET)
+    @RequestMapping(value = ADDPAGERESTURL, method = RequestMethod.GET)
     public String viewaddpage(@PathVariable String uname, Model model)
     {
 		if (StringUtils.isEmpty(uname))
@@ -31,16 +33,16 @@ public class UserRoleRestService
 		userrole.setAllroles(userrole.findAllPotential(uname));
 		model.addAttribute("userrole", userrole);
 
-		return UserRoleConstants.ADDPAGE;
+		return ADDPAGE;
     }
 
-    @RequestMapping(value = UserRoleConstants.DEFAULTADDPAGEURL, method = RequestMethod.GET)
+    @RequestMapping(value = ADDPAGEURL, method = RequestMethod.GET)
     public String redirectToSearch()
     {
     	return "redirect:/user/search";
     }
 
-    @RequestMapping(value = UserRoleConstants.ADDPAGEURL, method = RequestMethod.POST)
+    @RequestMapping(value = ADDPAGERESTURL, method = RequestMethod.POST)
     public String associateUsersWithRoles(@ModelAttribute("userrole") UserRole userrole, Model model)
     {
     	for (UserRole role:userrole.getAllroles())
@@ -51,7 +53,7 @@ public class UserRoleRestService
 			} 
     		catch (Exception e) 
     		{
-				return UserRoleConstants.ADDPAGE;
+				return ADDPAGE;
 			}
     	}
     	

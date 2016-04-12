@@ -16,26 +16,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import digital.places.root.AppConstants;
+import digital.places.root.AuthObject;
 
 // Its a servlet
 @Controller
-public class UserRestService
+public class UserRestService extends AuthObject
 {
-    @RequestMapping(value = UserConstants.ADDPAGEURL, method = RequestMethod.GET)
+    @RequestMapping(value = ADDPAGEURL, method = RequestMethod.GET)
     public String viewaddpage(Model model)
     {
 		User user = new User();
 		model.addAttribute("user", user);
-		return UserConstants.ADDPAGE;
+		return ADDPAGE;
     }
 
-    @RequestMapping(value = UserConstants.ADDPAGEURL, method = RequestMethod.POST)
+    @RequestMapping(value = ADDPAGEURL, method = RequestMethod.POST)
     public String create(@ModelAttribute("user") User user, BindingResult result, Model model)
     {
 		if (result.hasErrors())
 		{
-		    return UserConstants.ADDPAGE;
+		    return ADDPAGE;
 		}
 	
 		try
@@ -47,27 +47,27 @@ public class UserRestService
 		{
 		    e.printStackTrace();
 		    model.addAttribute("error","Unexpected error occured");
-		    return UserConstants.ADDPAGE;
+		    return ADDPAGE;
 		}
-		return UserConstants.CONFIRMPAGE;
+		return CONFIRMPAGE;
     }
 
-    @RequestMapping(value = AppConstants.SEARCHPAGEURL, method = RequestMethod.GET)
+    @RequestMapping(value = AuthObject.SEARCHPAGEURL, method = RequestMethod.GET)
     public String load() throws SQLException, ParseException
     {
-    	return AppConstants.SEARCHPAGE;
+    	return AuthObject.SEARCHPAGE;
     }
     
-    @RequestMapping(value = AppConstants.SEARCHPAGEURL, method = RequestMethod.POST)
+    @RequestMapping(value = AuthObject.SEARCHPAGEURL, method = RequestMethod.POST)
     public String search(@RequestParam(value = "usearch") String usearch, Model model) throws SQLException, ParseException
     {
     	User user = new User();
     	List<User> searchResults = user.findAllByUsername(usearch);
     	model.addAttribute("searchUser",searchResults);
-    	return AppConstants.SEARCHPAGE;
+    	return AuthObject.SEARCHPAGE;
     }
 
-    @RequestMapping(value = UserConstants.UPDATEPAGEURL, method = RequestMethod.GET)
+    @RequestMapping(value = UPDATEPAGEURL, method = RequestMethod.GET)
     public String viewupdatepage(@RequestParam("uname") String uname, Model model)
     {
 		if (StringUtils.isEmpty(uname))
@@ -77,29 +77,29 @@ public class UserRestService
 
 		User user = new User().identify(uname).findInDatastore().prepUpdate();
 		model.addAttribute("user", user);
-		return UserConstants.UPDATEPAGE;
+		return UPDATEPAGE;
     }
     
-    @RequestMapping(value = UserConstants.UPDATEPAGEURL, method = RequestMethod.POST)
+    @RequestMapping(value = UPDATEPAGEURL, method = RequestMethod.POST)
     public String update(@ModelAttribute("user") User user, BindingResult result, Model model)
     {
 		if (result.hasErrors())
 		{
-		    return UserConstants.UPDATEPAGE;
+		    return UPDATEPAGE;
 		}
 	
 		try
 		{
 		    user.update();
-		    model.addAttribute("username",user.getUsername());
+		    model.addAttribute("uname",user.getUsername());
 		}
 		catch (Exception e)
 		{
 		    e.printStackTrace();
 		    model.addAttribute("error","Unexpected error occured");
-		    return UserConstants.ADDPAGE;
+		    return ADDPAGE;
 		}
-		return UserConstants.CONFIRMPAGE;
+		return CONFIRMPAGE;
     }
 
     @InitBinder

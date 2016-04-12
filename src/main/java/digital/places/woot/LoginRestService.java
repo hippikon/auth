@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import digital.places.root.AppConstants;
+import digital.places.root.AuthObject;
 
 // Its a servlet
 @Controller
-public class LoginRestService
+public class LoginRestService extends AuthObject
 {
-    @RequestMapping(value = AppConstants.LOGINPAGEURL, method = RequestMethod.GET)
+    @RequestMapping(value = LOGINPAGEURL, method = RequestMethod.GET)
     public ModelAndView login1(@RequestParam(value = "error", required = false) String error,
     @RequestParam(value = "logout", required = false) String logout) 
     {
@@ -31,13 +31,13 @@ public class LoginRestService
             model.addObject("msg", "You've been logged out successfully.");
         }
         
-        model.setViewName(AppConstants.LOGINPAGE);
+        model.setViewName(LOGINPAGE);
     
         return model;
     }
 	
     //for 403 access denied page
-    @RequestMapping(value = AppConstants.PAGE403URL, method = RequestMethod.GET)
+    @RequestMapping(value = PAGE403URL, method = RequestMethod.GET)
     public ModelAndView accesssDenied() 
     {
     
@@ -51,7 +51,7 @@ public class LoginRestService
             model.addObject("username", userDetail.getUsername());
         }
     		
-        model.setViewName(AppConstants.PAGE403);
+        model.setViewName(PAGE403);
         return model;
     
     }    

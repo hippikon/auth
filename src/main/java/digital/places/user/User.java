@@ -17,21 +17,16 @@ import javax.persistence.Transient;
 
 import org.springframework.util.StringUtils;
 
-import digital.places.root.AppConstants;
 import digital.places.root.AppContextJavaProvider;
 import digital.places.root.AppMailer;
-import digital.places.root.AppUtils;
+import digital.places.root.AuthObject;
 import digital.places.root.DataService;
 
 @Entity
 @Table (name="users")
-public class User implements Serializable
+public class User extends AuthObject implements Serializable
 {
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
-
 
 	public static final Map<String,String> ULOCATIONS = new HashMap<String,String>();
     static
@@ -49,10 +44,9 @@ public class User implements Serializable
     }
 
     
-    public static final LinkedHashMap<String,String> UDD = AppConstants.UDD;
-    public static final LinkedHashMap<String,String> UMM = AppConstants.UMM;
-    public static final LinkedHashMap<String,String> UYYYY = AppConstants.UYYYY;
-    public static final LinkedHashMap<String,String> UDOBY = UserConstants.UDOBY;
+    public static final LinkedHashMap<String,String> UDD = AuthObject.UDD;
+    public static final LinkedHashMap<String,String> UMM = AuthObject.UMM;
+    public static final LinkedHashMap<String,String> UYYYY = AuthObject.UYYYY;
     
     @Id
     @Column (columnDefinition = "VARCHAR",length = 20)
@@ -233,13 +227,13 @@ public class User implements Serializable
     
     void prepStore() throws ParseException
     {
-		setUdob(AppUtils.parseDate(this.udobdd,this.udobmm,this.udobyyyy));
-		setUstartdate(AppUtils.parseDate(this.ustartdatedd,this.ustartdatemm,this.ustartdateyyyy));
+		setUdob(parseDate(this.udobdd,this.udobmm,this.udobyyyy));
+		setUstartdate(parseDate(this.ustartdatedd,this.ustartdatemm,this.ustartdateyyyy));
 		if (!StringUtils.isEmpty(this.uenddatedd))
 		{
 		    try
 		    {
-		    	setUenddate(AppUtils.parseDate(this.uenddatedd,this.uenddatemm,this.uenddateyyyy));
+		    	setUenddate(parseDate(this.uenddatedd,this.uenddatemm,this.uenddateyyyy));
 		    }
 		    catch (Exception e)
 		    {

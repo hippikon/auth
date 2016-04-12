@@ -10,11 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import digital.places.root.AppContextJavaProvider;
+import digital.places.root.AuthObject;
 import digital.places.root.DataService;
 
 @Entity
 @Table (name="roles")
-public class Role implements Serializable
+public class Role extends AuthObject implements Serializable
 {
     private static final long serialVersionUID = 1L;
     
