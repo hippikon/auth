@@ -6,7 +6,7 @@
 	<groupId>digital.places</groupId>
 	<artifactId>auth</artifactId>
 	<packaging>war</packaging>
-	<version>1.0</version>
+	<version>1.1-SNAPSHOT</version>
 	<name>auth</name>
 	<url>http://maven.apache.org</url>
 	<properties>
@@ -16,6 +16,13 @@
 		<jstl.version>1.2</jstl.version>
 		<spring.security.version>4.0.3.RELEASE</spring.security.version>
 	</properties>
+	<distributionManagement>
+		<snapshotRepository>
+		<id>nexus</id>
+		<url>http://localhost:8081/repository/Snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+  
 	<build>
     <plugins>
       <plugin>
@@ -54,7 +61,13 @@
 				<showDeprecation>true</showDeprecation>
 			</configuration>
 		</plugin>
-    </plugins>
+		<plugin>
+			<groupId>org.sonatype.plugins</groupId>
+			<artifactId>nexus-staging-maven-plugin</artifactId>
+			<version>1.6.3</version>
+			<extensions>true</extensions>
+		</plugin>
+	</plugins>
 	</build>
 	<dependencies>
 		<dependency>
