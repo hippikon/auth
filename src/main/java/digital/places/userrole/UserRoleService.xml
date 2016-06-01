@@ -5,9 +5,9 @@
 	xmlns:mvc="http://www.springframework.org/schema/mvc" 
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="
-		http://www.springframework.org/schema/mvc lib/xsd/spring-mvc-4.2.xsd 
-		http://www.springframework.org/schema/beans lib/xsd/spring-beans-4.2.xsd
-		http://www.springframework.org/schema/context lib/xsd/spring-context-4.2.xsd">
+		http://www.springframework.org/schema/mvc /lib/xsd/spring-mvc-4.2.xsd 
+		http://www.springframework.org/schema/beans /lib/xsd/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/context /lib/xsd/spring-context-4.2.xsd">
 
 	<context:component-scan base-package="digital.places.userrole" />
 	
