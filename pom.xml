@@ -39,6 +39,8 @@
 					<targetPath>WEB-INF/classes</targetPath>
 					<includes>
 						<include>**/*.xml</include>
+						<include>**/*.xsd</include>
+						<include>**/*.css</include>
 					</includes>
 				</resource>
 			</webResources>
