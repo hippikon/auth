@@ -11,10 +11,10 @@
 	<url>http://maven.apache.org</url>
 	<properties>
 		<jdk.version>1.8</jdk.version>
-		<spring.version>4.2.2.RELEASE</spring.version>
+		<spring.version>4.2.6.RELEASE</spring.version>
 		<mysql.connector.version>5.1.36</mysql.connector.version>
 		<jstl.version>1.2</jstl.version>
-		<spring.security.version>4.0.3.RELEASE</spring.security.version>
+		<spring.security.version>4.1.0.RELEASE</spring.security.version>
 	</properties>
 	<distributionManagement>
 		<snapshotRepository>
@@ -39,8 +39,7 @@
 					<targetPath>WEB-INF/classes</targetPath>
 					<includes>
 						<include>**/*.xml</include>
-						<include>**/*.xsd</include>
-						<include>**/*.css</include>
+						<include>**/*.properties</include>
 					</includes>
 				</resource>
 			</webResources>
@@ -168,10 +167,20 @@
 			<version>${spring.version}</version>
 		</dependency>
 		
-		<dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.0</version>   
+        </dependency>
+        <dependency>
 		    <groupId>javax.mail</groupId>
 		    <artifactId>mail</artifactId>
 		    <version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.6.3</version>
 		</dependency>
    	</dependencies>
 </project>

@@ -4,21 +4,22 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 import org.springframework.util.StringUtils;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public abstract class AuthObject implements Links
 {
     public static final LinkedHashMap<String,String> UYYYY = new LinkedHashMap<String,String>();
-
+    private final ObjectMapper objectMapper = new ObjectMapper();
     static
     {
     	UYYYY.put("","YYYY");
     	UYYYY.put(String.valueOf(2015),String.valueOf(2015));
     	UYYYY.put(String.valueOf(2016),String.valueOf(2016));
     }
-
 
     public static final LinkedHashMap<String,String> UDD = new LinkedHashMap<String,String>();
 
@@ -57,7 +58,6 @@ public abstract class AuthObject implements Links
 		UDD.put(String.valueOf(30),String.valueOf(30));
 		UDD.put(String.valueOf(31),String.valueOf(31));
     }
-
 
     public static final LinkedHashMap<String,String> UMM = new LinkedHashMap<String,String>();
     
@@ -105,5 +105,17 @@ public abstract class AuthObject implements Links
 		}
 		return outputDate;
     }
+
+	@Override
+	public String toString() 
+	{
+		String output = "";
+		try {
+			output = objectMapper.writeValueAsString(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return output;
+	}
     
 }

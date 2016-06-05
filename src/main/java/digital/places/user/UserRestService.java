@@ -40,6 +40,7 @@ public class UserRestService extends AuthObject
 	
 		try
 		{
+			System.out.println(user);
 		    user.addToDatastore();
 		    model.addAttribute("uname",user.getUsername());
 		}

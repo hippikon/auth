@@ -17,6 +17,8 @@ import javax.persistence.Transient;
 
 import org.springframework.util.StringUtils;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import digital.places.root.AppContextJavaProvider;
 import digital.places.root.AppMailer;
 import digital.places.root.AuthObject;
@@ -43,7 +45,6 @@ public class User extends AuthObject implements Serializable
 		ENABLEDS.put(0,"DISABLED");
     }
 
-    
     public static final LinkedHashMap<String,String> UDD = AuthObject.UDD;
     public static final LinkedHashMap<String,String> UMM = AuthObject.UMM;
     public static final LinkedHashMap<String,String> UYYYY = AuthObject.UYYYY;
@@ -392,6 +393,7 @@ public class User extends AuthObject implements Serializable
         this.uemail = uemail;
     }
 
+    @JsonIgnore
     public String getPassword()
     {
         return password;
@@ -412,37 +414,37 @@ public class User extends AuthObject implements Serializable
         this.ulocation = ulocation;
     }
 
-    @Override
-    public String toString()
-    {
-	return this.username;
-    }
-
+    @JsonIgnore
     public Map<String, String> getUDD()
     {
         return UDD;
     }
 
+    @JsonIgnore
     public Map<String, String> getULOCATIONS()
     {
         return ULOCATIONS;
     }
 
+    @JsonIgnore
     public Map<Integer, String> getENABLEDS()
     {
         return ENABLEDS;
     }
 
+    @JsonIgnore
     public Map<String, String> getUMM()
     {
         return UMM;
     }
 
+    @JsonIgnore
     public Map<String, String> getUYYYY()
     {
         return UYYYY;
     }
 
+    @JsonIgnore
     public Map<String, String> getUDOBY()
     {
         return UDOBY;

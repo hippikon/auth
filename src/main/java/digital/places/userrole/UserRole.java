@@ -17,7 +17,7 @@ import javax.persistence.Transient;
 import org.springframework.util.StringUtils;
 
 import digital.places.role.Role;
-import digital.places.role.RoleFacade;
+import digital.places.role.RoleInterface;
 import digital.places.root.AppContextJavaProvider;
 import digital.places.root.AuthObject;
 import digital.places.root.DataService;
@@ -98,7 +98,7 @@ public class UserRole extends AuthObject implements Serializable
 
 	public List<UserRole> findAllPotential(String user) 
 	{
-		RoleFacade roleFacade = (RoleFacade) AppContextJavaProvider.getApplicationContext().getBean("roleProxy");
+		RoleInterface roleFacade = (RoleInterface) AppContextJavaProvider.getApplicationContext().getBean("roleProxy");
 		List<Role> allRoles = roleFacade.fetchAllRoles();
 		List<UserRole> allCurUserRoles = findAll(user);
 		List<UserRole> allPUserRoles = new ArrayList<UserRole>();
