@@ -35,27 +35,6 @@ public class Role extends AuthObject implements Serializable
     private int enabled = 1;
 	
 
-	@Override
-	public String toString() 
-	{
-		return role;
-	}
-
-	@Override
-	public boolean equals(Object inRole) 
-	{
-		if (inRole instanceof Role && roleid == ((Role)inRole).roleid)
-		{
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public int hashCode() {
-		return 1;
-	}
-
 	static void findAll(DataService dataService) 
 	{
 		if (allRoles == null)

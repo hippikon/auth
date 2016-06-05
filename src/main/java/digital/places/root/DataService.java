@@ -2,21 +2,16 @@ package digital.places.root;
 
 import java.util.List;
 
-import javax.servlet.ServletContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class DataService extends AuthObject
+public class DataService
 {
     DataStore dataStore;
 
-    @Autowired
-	ServletContext servletContext;
-    
     @Autowired
     public void setDataStore(DataStore dataStore)
     {

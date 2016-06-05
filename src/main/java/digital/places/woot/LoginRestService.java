@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import digital.places.root.AuthObject;
+import digital.places.root.Links;
 
 // Its a servlet
 @Controller
-public class LoginRestService extends AuthObject
+public class LoginRestService implements Links
 {
     @RequestMapping(value = LOGINPAGEURL, method = RequestMethod.GET)
     public ModelAndView login1(@RequestParam(value = "error", required = false) String error,

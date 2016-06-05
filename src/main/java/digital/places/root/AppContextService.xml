@@ -94,7 +94,7 @@
    
    	<tx:annotation-driven/>
 
-	<bean id="roleFacade" class="digital.places.role.RoleFacade"/>
+	<bean id="roleFacade" class="digital.places.role.RoleDAO"/>
 	<bean id="advice" class="digital.places.role.BeforeFindAllRoles" />
 
 	<bean id="roleProxy" class="org.springframework.aop.framework.ProxyFactoryBean">

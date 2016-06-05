@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public abstract class AuthObject implements Links
+public abstract class AuthObject
 {
     public static final LinkedHashMap<String,String> UYYYY = new LinkedHashMap<String,String>();
     private final ObjectMapper objectMapper = new ObjectMapper();

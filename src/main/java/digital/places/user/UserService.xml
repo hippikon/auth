@@ -26,5 +26,10 @@
 		</property>
 	</bean>
 
-    <mvc:resources mapping="/lib/**" location="../lib/" cache-period="31556926"/>
+	<bean id="userDAO" class="digital.places.user.UserDAO"/>
+	<bean id="userFacade" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="userDAO" />
+	</bean>
+	
+	<mvc:resources mapping="/lib/**" location="../lib/" cache-period="31556926"/>
 </beans>

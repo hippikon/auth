@@ -8,7 +8,7 @@ import digital.places.root.AppContextJavaProvider;
 import digital.places.root.AuthObject;
 import digital.places.root.DataService;
 
-public class BeforeFindAllRoles extends AuthObject implements MethodBeforeAdvice
+public class BeforeFindAllRoles implements MethodBeforeAdvice
 {
 	@Override
 	public void before(Method method, Object[] args, Object target)

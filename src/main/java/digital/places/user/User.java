@@ -113,136 +113,16 @@ public class User extends AuthObject implements Serializable
     @Column(columnDefinition = "ENUM('ROLLING MEADOWS, IL','WILMINGTON, DE','RICHMOND, VA')")
     private String ulocation = ULOCATIONS.get("1");
     
-    @Transient
-    private List<User> cluster;
-    
-	private DataService getDataService()
-    {
-		return (DataService) AppContextJavaProvider.getApplicationContext().getBean("dataService");
-    }
-    
-    List<User> findAllByUsername(String username)
-    {
-    	String sql = "select u from User u where username like '%"+StringUtils.trimAllWhitespace(username)+"%'";
-		DataService dataService = getDataService();
-    	return (List<User>)dataService.query(sql);
-    }
-    
-    User findInDatastore()
-    {
-    	String sql = "select u from User u where username = '"+StringUtils.trimAllWhitespace(username)+"'";
-		DataService dataService = getDataService();
-		List<User> users = (List<User>)dataService.query(sql);
-		if (users != null && users.size() > 0)
-		{
-			dissolve(users.get(0));
-		}
-		wasEnabled = enabled;
-    	return this;
-    }
+    public User() {
+		super();
+	}
 
-    User prepUpdate()
+	public User(String inpUsername)
     {
-    	Calendar cal = Calendar.getInstance();
-    	if (udob != null)
-    	{
-        	cal.setTime(udob);
-    		udobdd = String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
-    		udobmm = String.valueOf(cal.get(Calendar.MONTH));
-    		udobyyyy = String.valueOf(cal.get(Calendar.YEAR));
-    	}
-
-    	if (ustartdate != null)
-    	{
-        	cal.setTime(ustartdate);
-    		ustartdatedd = String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
-    		ustartdatemm = String.valueOf(cal.get(Calendar.MONTH));
-    		ustartdateyyyy = String.valueOf(cal.get(Calendar.YEAR));
-    	}
-
-    	if (uenddate != null)
-    	{
-        	cal.setTime(uenddate);
-    		uenddatedd = String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
-    		uenddatemm = String.valueOf(cal.get(Calendar.MONTH));
-    		uenddateyyyy = String.valueOf(cal.get(Calendar.YEAR));
-    	}
-
-    	return this;
-    }
-    
-    void update() throws ParseException
-    {
-    	prepStore();
-    	if (wasEnabled == 1 && enabled == 0)
-    	{
-    		AppMailer appMailer = (AppMailer)AppContextJavaProvider.getApplicationContext().getBean("mailService");
-    		appMailer.sendMail(null, "user "+username+" updated", "status disabled");
-    	}
-		DataService dataService = getDataService();
-		dataService.update(this);
-    }
-    
-    private void dissolve(Object obj)
-    {
-    	if (obj instanceof User)
-    	{
-    		User user = (User) obj;
-    		this.cluster = user.getCluster();
-    		this.enabled = user.getEnabled();
-    		this.wasEnabled = user.getWasEnabled();
-    		this.password = user.getPassword();
-    		this.udob = user.getUdob();
-    		this.udobdd = user.getUdobdd();
-    		this.udobmm = user.getUdobmm();
-    		this.udobyyyy = user.getUdobyyyy();
-    		this.uemail = user.getUemail();
-    		this.uenddate = user.getUenddate();
-    		this.uenddatedd = user.getUenddatedd();
-    		this.uenddatemm = user.getUenddatemm();
-    		this.uenddateyyyy = user.getUenddateyyyy();
-    		this.ufname = user.getUfname();
-    		this.ulname = user.getUlname();
-    		this.ulocation = user.getUlocation();
-    		this.umname = user.getUmname();
-    		this.username = user.getUsername();
-    		this.ustartdate = user.getUstartdate();
-    		this.ustartdatedd = user.getUstartdatedd();
-    		this.ustartdatemm = user.getUstartdatemm();
-    		this.ustartdateyyyy = user.getUstartdateyyyy();
-    	}
-    }
-    
-    public User identify(String inpUsername)
-    {
+		super();
         this.username = inpUsername;
-        return this;
     }
 
-    void addToDatastore() throws ParseException 
-    {
-    	prepStore();
-		DataService dataService = getDataService();
-		dataService.create(this);
-    }
-    
-    void prepStore() throws ParseException
-    {
-		setUdob(parseDate(this.udobdd,this.udobmm,this.udobyyyy));
-		setUstartdate(parseDate(this.ustartdatedd,this.ustartdatemm,this.ustartdateyyyy));
-		if (!StringUtils.isEmpty(this.uenddatedd))
-		{
-		    try
-		    {
-		    	setUenddate(parseDate(this.uenddatedd,this.uenddatemm,this.uenddateyyyy));
-		    }
-		    catch (Exception e)
-		    {
-		    	e.printStackTrace();
-		    }
-		}
-    }
-    
     public String getUsername()
     {
         return username;
@@ -484,14 +364,6 @@ public class User extends AuthObject implements Serializable
     {
         this.uenddate = uenddate;
     }
-
-    public List<User> getCluster() {
-		return cluster;
-	}
-
-	public void setCluster(List<User> cluster) {
-		this.cluster = cluster;
-	}
 
     public int getWasEnabled() {
 		return wasEnabled;

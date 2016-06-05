@@ -14,10 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import digital.places.role.Role;
-import digital.places.role.RoleInterface;
+import digital.places.role.RoleFacade;
 import digital.places.root.AppContextJavaProvider;
 import digital.places.root.AuthObject;
 import digital.places.root.DataService;
@@ -31,7 +32,7 @@ public class UserRole extends AuthObject implements Serializable
     public static final LinkedHashMap<String,String> UMM = AuthObject.UMM;
     public static final LinkedHashMap<String,String> UYYYY = AuthObject.UYYYY;
 
-    @Id
+	@Id
     @GeneratedValue
     @Column
     private int userroleid;
@@ -84,11 +85,13 @@ public class UserRole extends AuthObject implements Serializable
     @Column (columnDefinition = "TINYINT")
     private int enabled = 1;
     
-	void addToDatastore() 
+    private RoleFacade roleDAO;
+    
+    @Autowired
+    public void setRoleDAO(RoleFacade roleDAO) 
     {
-		DataService dataService = getDataService();
-		dataService.create(this);
-    }
+		this.roleDAO = roleDAO;
+	}
 
 	public List<UserRole> findAll(String user) 
 	{
@@ -98,8 +101,7 @@ public class UserRole extends AuthObject implements Serializable
 
 	public List<UserRole> findAllPotential(String user) 
 	{
-		RoleInterface roleFacade = (RoleInterface) AppContextJavaProvider.getApplicationContext().getBean("roleProxy");
-		List<Role> allRoles = roleFacade.fetchAllRoles();
+		List<Role> allRoles = roleDAO.fetchAllRoles();
 		List<UserRole> allCurUserRoles = findAll(user);
 		List<UserRole> allPUserRoles = new ArrayList<UserRole>();
 		for (Role role:allRoles)
@@ -130,23 +132,6 @@ public class UserRole extends AuthObject implements Serializable
 		return (DataService) AppContextJavaProvider.getApplicationContext().getBean("dataService");
     }
     
-	@Override
-	public boolean equals(Object iUserRole) 
-	{
-		if (iUserRole instanceof UserRole)
-		{
-			UserRole temp = (UserRole) iUserRole;
-			if (!StringUtils.isEmpty(this.username) && this.username.equals(temp.getUsername()) && roleid == temp.getRoleid())
-				return true;
-		}
-		return false;
-	}
-
-	@Override
-	public int hashCode() {
-		return 1;
-	}
-
     int add() throws Exception
     {
 		DataService dataService = getDataService();

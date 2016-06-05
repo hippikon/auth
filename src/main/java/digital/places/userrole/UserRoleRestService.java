@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import digital.places.root.AuthObject;
+import digital.places.root.Links;
 
 // Its a servlet
 @Controller
-public class UserRoleRestService extends AuthObject
+public class UserRoleRestService implements Links
 {
+	
     @RequestMapping(value = ADDPAGERESTURL, method = RequestMethod.GET)
     public String viewaddpage(@PathVariable String uname, Model model)
     {
