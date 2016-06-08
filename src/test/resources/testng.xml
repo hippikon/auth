@@ -1,0 +1,21 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="TestAll">
+
+	<test name="selenium">
+	
+		<groups>
+			<run>
+				<include name="parseDate_Logical" />
+				<include name="parseDate" />
+			</run>
+		</groups>
+  
+		<classes>
+			<class name="digital.places.root.AuthBaseTest" />
+			<class name="digital.places.userrole.UserRoleDAOTest" />
+		</classes>
+		
+	</test>
+	
+</suite>
