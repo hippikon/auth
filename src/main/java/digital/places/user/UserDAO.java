@@ -2,16 +2,16 @@ package digital.places.user;
 
 import java.text.ParseException;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.util.StringUtils;
 
 import digital.places.root.AppContextJavaProvider;
 import digital.places.root.AppMailer;
+import digital.places.root.AuthBase;
 import digital.places.root.DataService;
 
-public class UserDAO implements UserFacade
+class UserDAO extends AuthBase implements UserFacade
 {
 	private DataService getDataService()
     {
@@ -49,7 +49,7 @@ public class UserDAO implements UserFacade
     		appMailer.sendMail(null, "user "+user.getUsername()+" updated", "status disabled");
     	}
 		DataService dataService = getDataService();
-		dataService.update(this);
+		dataService.update(user);
     }
 
     public void add(User user) throws ParseException 
@@ -59,7 +59,7 @@ public class UserDAO implements UserFacade
 		dataService.create(user);
     }
 
-    private User prepUpdate(User user)
+    private void prepUpdate(User user)
     {
     	Calendar cal = Calendar.getInstance();
     	if (user.getUdob() != null)
@@ -85,8 +85,6 @@ public class UserDAO implements UserFacade
         	user.setUenddatemm(String.valueOf(cal.get(Calendar.MONTH)));
         	user.setUenddateyyyy(String.valueOf(cal.get(Calendar.YEAR)));
     	}
-
-    	return user;
     }
     
     private void prepStore(User user) throws ParseException
@@ -106,20 +104,5 @@ public class UserDAO implements UserFacade
 		}
     }
 
-    private Date parseDate(final String day, final String month, final String year) throws ParseException
-    {
-		Date outputDate = null;
-		if (!StringUtils.isEmpty(day) && !StringUtils.isEmpty(month) &&!StringUtils.isEmpty(year))
-		{
-		    Calendar c = Calendar.getInstance();
-		    c.set(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
-		    outputDate = new Date(c.getTimeInMillis());
-		}
-		else
-		{
-			throw new ParseException("invalid date",0);
-		}
-		return outputDate;
-    }
 
 }

@@ -3,7 +3,7 @@ package digital.places.user;
 import java.text.ParseException;
 import java.util.List;
 
-public interface UserFacade 
+interface UserFacade 
 {
 	public List<User> findAllByUsername(String username);
 	

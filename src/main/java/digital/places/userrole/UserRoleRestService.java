@@ -3,6 +3,7 @@ package digital.places.userrole;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +21,14 @@ import digital.places.root.Links;
 @Controller
 public class UserRoleRestService implements Links
 {
+	private UserRoleFacade userRoleDAO;
 	
-    @RequestMapping(value = ADDPAGERESTURL, method = RequestMethod.GET)
+	@Autowired
+    public void setUserRoleDAO(UserRoleFacade userRoleDAO) {
+		this.userRoleDAO = userRoleDAO;
+	}
+
+	@RequestMapping(value = ADDPAGERESTURL, method = RequestMethod.GET)
     public String viewaddpage(@PathVariable String uname, Model model)
     {
 		if (StringUtils.isEmpty(uname))
@@ -31,7 +38,7 @@ public class UserRoleRestService implements Links
 
 		UserRole userrole = new UserRole();
 		userrole.setUsername(uname);
-		userrole.setAllroles(userrole.findAllPotential(uname));
+		userrole.setAllroles(userRoleDAO.findAllPotential(uname));
 		model.addAttribute("userrole", userrole);
 
 		return ADDPAGE;
@@ -50,7 +57,7 @@ public class UserRoleRestService implements Links
     	{
     		try 
     		{
-				role.add();
+    			userRoleDAO.add(role);
 			} 
     		catch (Exception e) 
     		{

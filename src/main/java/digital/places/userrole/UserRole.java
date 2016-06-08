@@ -84,105 +84,7 @@ public class UserRole extends AuthObject implements Serializable
 
     @Column (columnDefinition = "TINYINT")
     private int enabled = 1;
-    
-    private RoleFacade roleDAO;
-    
-    @Autowired
-    public void setRoleDAO(RoleFacade roleDAO) 
-    {
-		this.roleDAO = roleDAO;
-	}
 
-	public List<UserRole> findAll(String user) 
-	{
-		DataService dataService = getDataService();
-		return (List<UserRole>) dataService.query("select ur from UserRole ur, Role r where r.enabled=1 and ur.enabled=1 and ur.roleid = r.roleid and ur.username = '"+StringUtils.trimAllWhitespace(user)+"'");
-	}
-
-	public List<UserRole> findAllPotential(String user) 
-	{
-		List<Role> allRoles = roleDAO.fetchAllRoles();
-		List<UserRole> allCurUserRoles = findAll(user);
-		List<UserRole> allPUserRoles = new ArrayList<UserRole>();
-		for (Role role:allRoles)
-		{
-			UserRole urole = new UserRole();
-			urole.setRoleid(role.getRoleid());
-			urole.setRoleName(role.getRole());
-			urole.setUsername(user);
-			if (allCurUserRoles.contains(urole))
-			{
-				UserRole temp = allCurUserRoles.get(allCurUserRoles.indexOf(urole));
-				temp.setSelected("checked");
-				temp.setUpsertid(0);
-				temp.setRoleName(role.getRole());
-			}
-			else
-			{
-				allPUserRoles.add(urole);
-			}
-		}
-		allCurUserRoles.addAll(allPUserRoles);
-		return allCurUserRoles;
-	}
-
-	
-    private DataService getDataService()
-    {
-		return (DataService) AppContextJavaProvider.getApplicationContext().getBean("dataService");
-    }
-    
-    int add() throws Exception
-    {
-		DataService dataService = getDataService();
-    	if ("on".equals(strenabled))
-    	{
-    		enabled = 1;
-    	}
-    	else
-    	{
-    		enabled = 0;
-    	}
-
-    	if (upsertid == -1 && "on".equals(selected))
-    	{
-			//For add page - readonly view of existing records in case of errors
-    		selected = "";
-    		
-        	validateThis();
-    		dataService.create(this);
-    		return 1;
-    	}
-    	else
-    	{
-    		selected = "checked";
-			//For add page - readonly view of existing records in case of errors
-    		if (enabled == 0)
-    		{
-        		setRoleenddate(Calendar.getInstance().getTime());
-    			dataService.update(this);
-    		}
-    	}
-    	return 0;
-    }
-    
-    private void validateThis() throws Exception
-    {		
-	    try
-	    {
-	    	setRolestartdate(parseDate(this.rolesddd,this.rolesdmm,this.rolesdyyyy));
-			if (!StringUtils.isEmpty(this.roleeddd))
-			{
-			    setRoleenddate(parseDate(this.roleeddd,this.roleedmm,this.roleedyyyy));
-		    }
-		}
-	    catch (Exception e)
-	    {
-	    	e.printStackTrace();
-	    	throw e;
-	    }
-    }
-    
     public String getRoleName() 
     {
 		return roleName;
@@ -332,4 +234,22 @@ public class UserRole extends AuthObject implements Serializable
 	public LinkedHashMap<String, String> getUYYYY() {
 		return UYYYY;
 	}
+
+	@Override
+	public boolean equals(Object iUserRole) 
+	{
+		if (iUserRole instanceof UserRole)
+		{
+			UserRole temp = (UserRole) iUserRole;
+			if (!StringUtils.isEmpty(this.username) && this.username.equals(temp.getUsername()) && roleid == temp.getRoleid())
+				return true;
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return 1;
+	}
+    
 }
