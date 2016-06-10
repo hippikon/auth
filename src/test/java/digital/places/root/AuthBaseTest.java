@@ -98,7 +98,7 @@ public class AuthBaseTest
 	@Test (groups= "parseDate_Logical")
 	public void validDateTestFeb3() throws ParseException 
 	{
-		Date valid = AuthBase.parseDate("29", "1", "1998");
+		Date valid = AuthBase.parseDate("29", "1", "2000");
 		Assert.assertNotNull(valid);
 	}
 }
