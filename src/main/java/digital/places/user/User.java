@@ -1,12 +1,9 @@
 package digital.places.user;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Column;
@@ -15,14 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.springframework.util.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import digital.places.root.AppContextJavaProvider;
-import digital.places.root.AppMailer;
 import digital.places.root.AuthObject;
-import digital.places.root.DataService;
 
 @Entity
 @Table(name = "users")

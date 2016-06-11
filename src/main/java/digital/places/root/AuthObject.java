@@ -1,13 +1,7 @@
 package digital.places.root;
 
-import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedHashMap;
 
-import org.springframework.util.StringUtils;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public abstract class AuthObject

@@ -5,7 +5,6 @@ import java.lang.reflect.Method;
 import org.springframework.aop.MethodBeforeAdvice;
 
 import digital.places.root.AppContextJavaProvider;
-import digital.places.root.AuthObject;
 import digital.places.root.DataService;
 
 public class BeforeFindAllRoles implements MethodBeforeAdvice

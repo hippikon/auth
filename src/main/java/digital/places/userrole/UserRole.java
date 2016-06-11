@@ -1,8 +1,6 @@
 package digital.places.userrole;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -14,14 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
-import digital.places.role.Role;
-import digital.places.role.RoleFacade;
-import digital.places.root.AppContextJavaProvider;
 import digital.places.root.AuthObject;
-import digital.places.root.DataService;
 
 @Entity
 @Table(name = "user_roles")

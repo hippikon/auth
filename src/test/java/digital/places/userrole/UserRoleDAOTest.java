@@ -1,10 +1,5 @@
 package digital.places.userrole;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import org.testng.annotations.Test;
-
 public class UserRoleDAOTest
 {
 	// @Test
