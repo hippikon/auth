@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 public class MainTest 
 {
-	@Test (groups= "web")
+	@Test
 	public void testTitle()
 	{
 		WebDriver wdriver = new HtmlUnitDriver(true);

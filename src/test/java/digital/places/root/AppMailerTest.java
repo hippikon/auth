@@ -20,20 +20,20 @@ public class AppMailerTest
 	@InjectMocks
 	private AppMailer appMailer;
 
-	@BeforeMethod (groups= "mockito")
+	@BeforeMethod
 	public void mockSend()
 	{
 		MockitoAnnotations.initMocks(this);
 		Mockito.doNothing().when(mailSender).send(preConfiguredMessage);
 	}
 	
-	@Test (groups= "mockito")
+	@Test
 	public void sendMailTest()
 	{
 		appMailer.sendMail("rmadhrui2014@gas.com", "Test", "Testtest");	
 	}
 
-	@Test (groups= "mockito")
+	@Test
 	public void sendPreConfiguredMailTest()
 	{
 		appMailer.sendPreConfiguredMail("PreTesttest");	
