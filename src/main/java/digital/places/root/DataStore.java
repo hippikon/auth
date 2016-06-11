@@ -8,12 +8,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class DataStore
 {
-    @PersistenceContext
-    private EntityManager entityManager;
+	@PersistenceContext
+	private EntityManager entityManager;
 
-    public EntityManager getEntityManager()
-    {
-        return entityManager;
-    }
+	public EntityManager getEntityManager()
+	{
+		return entityManager;
+	}
 
 }

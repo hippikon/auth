@@ -11,13 +11,13 @@ import digital.places.root.DataService;
 public class BeforeFindAllRoles implements MethodBeforeAdvice
 {
 	@Override
-	public void before(Method method, Object[] args, Object target)
-		throws Throwable 
+	public void before(Method method, Object[] args, Object target) throws Throwable
 	{
 		if (Role.allRoles == null)
 		{
-			DataService dataService = (DataService) AppContextJavaProvider.getApplicationContext().getBean("dataService");
-	        Role.findAll(dataService);
+			DataService dataService = (DataService) AppContextJavaProvider.getApplicationContext()
+					.getBean("dataService");
+			Role.findAll(dataService);
 		}
 	}
 }

@@ -10,31 +10,31 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class DataService
 {
-    DataStore dataStore;
+	DataStore dataStore;
 
-    @Autowired
-    public void setDataStore(DataStore dataStore)
-    {
-        this.dataStore = dataStore;
-    }
+	@Autowired
+	public void setDataStore(DataStore dataStore)
+	{
+		this.dataStore = dataStore;
+	}
 
-    public void create(final Object obj)
-    {
-    	dataStore.getEntityManager().persist(obj);
-    }
+	public void create(final Object obj)
+	{
+		dataStore.getEntityManager().persist(obj);
+	}
 
-    public void update(final Object obj)
-    {
-    	dataStore.getEntityManager().merge(obj);
-    }
+	public void update(final Object obj)
+	{
+		dataStore.getEntityManager().merge(obj);
+	}
 
-    public List query(final String queryString)
-    {
-    	return dataStore.getEntityManager().createQuery(queryString).getResultList();
-    }
+	public List query(final String queryString)
+	{
+		return dataStore.getEntityManager().createQuery(queryString).getResultList();
+	}
 
-    public void delete(final Object obj)
-    {
-    	dataStore.getEntityManager().remove(obj);
-    }
+	public void delete(final Object obj)
+	{
+		dataStore.getEntityManager().remove(obj);
+	}
 }

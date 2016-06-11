@@ -14,69 +14,72 @@ import digital.places.root.AuthObject;
 import digital.places.root.DataService;
 
 @Entity
-@Table (name="roles")
+@Table(name = "roles")
 public class Role extends AuthObject implements Serializable
 {
-    private static final long serialVersionUID = 1L;
-    
-    public static final String DEFAULT_FINDALLVALID_QUERY = "select r from Role r where r.enabled = 1";
-    
-    static List<Role> allRoles;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue
-    @Column (columnDefinition = "TINYINT")
-    private int roleid;
-    
-    @Column (columnDefinition = "VARCHAR",length = 55)
-    private String role;
-    
-	@Column (columnDefinition = "TINYINT")
-    private int enabled = 1;
-	
+	public static final String DEFAULT_FINDALLVALID_QUERY = "select r from Role r where r.enabled = 1";
 
-	static void findAll(DataService dataService) 
+	static List<Role> allRoles;
+
+	@Id
+	@GeneratedValue
+	@Column(columnDefinition = "TINYINT")
+	private int roleid;
+
+	@Column(columnDefinition = "VARCHAR", length = 55)
+	private String role;
+
+	@Column(columnDefinition = "TINYINT")
+	private int enabled = 1;
+
+	static void findAll(DataService dataService)
 	{
 		if (allRoles == null)
 		{
-		    allRoles = (List<Role>)dataService.query(DEFAULT_FINDALLVALID_QUERY);
+			allRoles = (List<Role>) dataService.query(DEFAULT_FINDALLVALID_QUERY);
 		}
 	}
 
-    void addToDatastore() 
-    {
+	void addToDatastore()
+	{
 		DataService dataService = getDataService();
 		dataService.create(this);
-    }
+	}
 
-    private DataService getDataService()
-    {
+	private DataService getDataService()
+	{
 		return (DataService) AppContextJavaProvider.getApplicationContext().getBean("dataService");
-    }
-    
-    
-	public int getRoleid() {
+	}
+
+	public int getRoleid()
+	{
 		return roleid;
 	}
 
-	public void setRoleid(int roleid) {
+	public void setRoleid(int roleid)
+	{
 		this.roleid = roleid;
 	}
 
-	public String getRole() 
+	public String getRole()
 	{
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(String role)
+	{
 		this.role = role;
 	}
 
-	public int getEnabled() {
+	public int getEnabled()
+	{
 		return enabled;
 	}
 
-	public void setEnabled(int enabled) {
+	public void setEnabled(int enabled)
+	{
 		this.enabled = enabled;
 	}
 

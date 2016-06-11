@@ -5,7 +5,7 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class MainTest 
+public class MainTest
 {
 	@Test
 	public void testTitle()
@@ -14,6 +14,6 @@ public class MainTest
 		wdriver.get("http://localhost:8080/auth");
 		String title = wdriver.getTitle();
 		Assert.assertEquals(title, "Auth - Login Page");
-		
+
 	}
 }

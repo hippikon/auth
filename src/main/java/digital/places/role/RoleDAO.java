@@ -11,5 +11,5 @@ public class RoleDAO implements RoleFacade
 	{
 		return Role.allRoles;
 	}
-	
+
 }
