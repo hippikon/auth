@@ -4,9 +4,9 @@ import java.util.List;
 
 interface UserRoleFacade
 {
-	public List<UserRole> findAllPotential(String user);
+	List<UserRole> findAllPotential(String user);
 
-	public List<UserRole> findAll(String user);
+	List<UserRole> findAll(String user);
 
-	public int add(UserRole userRole) throws Exception;
+	int add(UserRole userRole) throws Exception;
 }

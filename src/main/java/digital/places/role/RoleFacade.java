@@ -5,5 +5,5 @@ import java.util.List;
 public interface RoleFacade
 {
 
-	public List<Role> fetchAllRoles();
+	List<Role> fetchAllRoles();
 }
