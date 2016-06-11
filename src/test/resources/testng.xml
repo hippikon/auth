@@ -2,17 +2,18 @@
 
 <suite name="TestAll">
 
-	<test name="selenium">
+	<test name="suite">
 	
-		<groups>
-			<run>
-				<include name="parseDate_Logical" />
-				<include name="parseDate" />
-			</run>
-		</groups>
-  
 		<classes>
-			<class name="digital.places.root.AuthBaseTest" />
+			<class name="digital.places.root.MainTest">
+			    <methods>
+			        <exclude name="testTitle" />
+			    </methods>	
+			</class>    
+   			<class name="digital.places.root.AuthBaseTest">
+   			</class>    
+			<!-- Mockito integration test-->
+			<class name="digital.places.root.AppMailerTest" />
 			<class name="digital.places.userrole.UserRoleDAOTest" />
 		</classes>
 		
