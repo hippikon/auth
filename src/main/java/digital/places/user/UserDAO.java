@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.List;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import digital.places.root.AppContextJavaProvider;
@@ -40,16 +42,17 @@ class UserDAO extends AuthBase implements UserFacade
 		return output;
 	}
 
+	@Transactional (propagation = Propagation.REQUIRED)
 	public void update(User user) throws ParseException
 	{
 		prepStore(user);
+		DataService dataService = getDataService();
+		dataService.update(user);
 		if (user.getWasEnabled() == 1 && user.getEnabled() == 0)
 		{
 			AppMailer appMailer = (AppMailer) AppContextJavaProvider.getApplicationContext().getBean("mailService");
 			appMailer.sendMail(null, "user " + user.getUsername() + " updated", "status disabled");
 		}
-		DataService dataService = getDataService();
-		dataService.update(user);
 	}
 
 	public void add(User user) throws ParseException
