@@ -87,7 +87,7 @@
    	<bean id="dataStore" class="digital.places.root.DataStore" />
    	<bean id="dataService" class="digital.places.root.DataService" />
    
-   	<tx:annotation-driven/>
+   	<tx:annotation-driven transaction-manager="transactionManager"/>
 
 	<bean id="roleDAO" class="digital.places.role.RoleDAO"/>
 	<bean id="advice" class="digital.places.role.BeforeFindAllRoles" />
