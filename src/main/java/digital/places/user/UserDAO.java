@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.List;
 
+import org.springframework.mail.MailSendException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -43,7 +44,7 @@ class UserDAO extends AuthBase implements UserFacade
 	}
 
 	@Transactional (propagation = Propagation.REQUIRED)
-	public void update(User user) throws ParseException
+	public void update(User user) throws ParseException, MailSendException
 	{
 		prepStore(user);
 		DataService dataService = getDataService();
