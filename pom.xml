@@ -23,8 +23,8 @@
 		</snapshotRepository>
 	</distributionManagement>
 	<scm>
-		<connection>scm:git:git@github.com:hippikon/auth.git</connection>
-		<developerConnection>scm:git:git@github.com:hippikon/auth.git</developerConnection>
+		<connection>scm:git:git://github.com:hippikon/auth.git</connection>
+		<developerConnection>scm:git:git://github.com:hippikon/auth.git</developerConnection>
 		<tag>.12</tag>
 		<url>https://github.com/hippikon/auth</url>
 	</scm>	
