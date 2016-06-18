@@ -3,7 +3,7 @@
 	<groupId>digital.places</groupId>
 	<artifactId>auth</artifactId>
 	<packaging>war</packaging>
-	<version>1.2</version>
+	<version>1.2-SNAPSHOT</version>
 	<name>auth</name>
 	<url>http://maven.apache.org</url>
 	<properties>
