@@ -7,6 +7,8 @@
 	<name>auth</name>
 	<url>http://maven.apache.org</url>
 	<properties>
+		<!-- Source control creds id for settings.xml, scm section below -->
+		<project.scm.id>git</project.scm.id>
 		<jdk.version>1.8</jdk.version>
 		<spring.version>4.2.6.RELEASE</spring.version>
 		<mysql.connector.version>5.1.36</mysql.connector.version>
