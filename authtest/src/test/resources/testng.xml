@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="AcceptanceTest">
+
+	<test name="suite">
+	
+		<classes>
+			<class name="digital.places.root.MainTest"/>
+		</classes>
+		
+	</test>
+	
+</suite>

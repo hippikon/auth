@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="unit">
+
+	<test name="unit">
+	
+		<classes>
+   			<class name="digital.places.root.AuthBaseTest">
+   			</class>    
+			<!-- Mockito integration test-->
+			<class name="digital.places.root.AppMailerTest" />
+			<class name="digital.places.userrole.UserRoleDAOTest" />
+		</classes>
+		
+	</test>
+	
+</suite>
