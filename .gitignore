@@ -1,0 +1,10 @@
+auth/target/
+authtest/target/
+auth/pom.xml.tag
+auth/pom.xml.releaseBackup
+auth/pom.xml.versionsBackup
+auth/pom.xml.next
+auth/release.properties
+auth/dependency-reduced-pom.xml
+auth/buildNumber.properties
+auth/.mvn/timing.properties
