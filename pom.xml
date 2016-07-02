@@ -3,9 +3,19 @@
 	<groupId>digital.places</groupId>
 	<artifactId>authpom</artifactId>
 	<packaging>pom</packaging>
-	<version>1.2</version>
+	<version>1.2-SNAPSHOT</version>
 	<name>authpom</name>
 
+	<distributionManagement>
+		<snapshotRepository>
+		<id>nexus</id>
+		<url>http://localhost:8081/repository/Snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>nexus</id>
+			<url>http://localhost:8081/repository/Releases/</url>
+		</repository>
+	</distributionManagement>
 	
 	<profiles>
 		<profile>
