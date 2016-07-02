@@ -6,6 +6,7 @@
 
 	<properties>
 	   <project.scm.id>git</project.scm.id>
+		<spring.version>4.2.6.RELEASE</spring.version>
 	</properties>
 	<distributionManagement>
 		<snapshotRepository>
