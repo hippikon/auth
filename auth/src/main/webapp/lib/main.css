@@ -28,3 +28,13 @@
 	-moz-border-radius: 2px;
 	border: 1px solid #000;
 }
+
+table
+{
+  background-image:
+    linear-gradient(
+      #FFFFAA, #FF800D
+    );
+    width:400px;
+}
+

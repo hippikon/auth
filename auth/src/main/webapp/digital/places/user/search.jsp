@@ -15,6 +15,9 @@
 <body>
 	<jsp:include page="../home.jsp" />
 	
+	<table border="1" cellpadding="15" align="center">
+	<tr>
+	<td>
 	<form:form method="post">
 		<input type="text" name="usearch"/>
 		<input type="submit"/>&nbsp;
@@ -33,6 +36,9 @@
 	</form:form>
 
 	<br/>
+	</td>
+	</tr>
+	</table>	
 
 
 </body>

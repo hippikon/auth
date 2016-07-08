@@ -8,7 +8,7 @@
 	
 	String home = url.substring(0,url.indexOf(uri)) + context;
 %>	
-
+	<link href='<c:url value="/lib/main.css" />' rel="stylesheet"/>
 	<c:url value="/o/j_spring_security_logout" var="logoutUrl" />
 	<form action="${logoutUrl}" method="post" id="logoutForm">
 		<input type="hidden" name="${_csrf.parameterName}"
@@ -32,3 +32,4 @@
 			<td width="5%">&nbsp;</td>
 		</tr>
 	</table>
+	

@@ -11,7 +11,7 @@
 </head>
 <body>
 	<jsp:include page="../home.jsp" />
-	<table border="1" cellpadding="15" width="80%" align="center">
+	<table border="1" cellpadding="15" align="center">
 	<tr>
 	<td>
 	Create User <br/>
@@ -64,7 +64,7 @@
 		    <form:options items="${user.ULOCATIONS}" />
 		</form:select> 
 		<form:errors path="ulocation" cssStyle="color:red;"/><br/>
-		<input type="submit"/>
+		<p align="center"><input type="submit"/></p>
 	</form:form>
 	</td>
 	</tr>
