@@ -7,6 +7,7 @@
 	<properties>
 	   <project.scm.id>git</project.scm.id>
 		<spring.version>4.2.6.RELEASE</spring.version>
+		<poi.version>3.8</poi.version>
 	</properties>
 	<distributionManagement>
 		<snapshotRepository>
@@ -119,6 +120,16 @@
 		    <groupId>xml-apis</groupId>
 		    <artifactId>xml-apis</artifactId>
 		    <version>1.4.01</version>
+		</dependency>
+		 <dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+		 <dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${poi.version}</version>
 		</dependency>
   	</dependencies>
 </project>

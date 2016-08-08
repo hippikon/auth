@@ -5,7 +5,7 @@
 	<test name="suite">
 	
 		<classes>
-			<class name="digital.places.root.MainTest"/>
+			<class name="digital.places.root.NLITest"/>
 		</classes>
 		
 	</test>
