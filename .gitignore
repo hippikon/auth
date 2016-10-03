@@ -8,3 +8,10 @@ auth/release.properties
 auth/dependency-reduced-pom.xml
 auth/buildNumber.properties
 auth/.mvn/timing.properties
+authtest/test-output/*
+auth/.settings/*
+auth/.classpath
+auth/.project
+authtest/.settings/*
+authtest/.classpath
+authtest/.project
