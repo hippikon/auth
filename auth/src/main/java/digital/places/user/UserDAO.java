@@ -63,7 +63,7 @@ class UserDAO extends AuthBase implements UserFacade
 		dataService.create(user);
 	}
 
-	private void prepUpdate(User user)
+	public void prepUpdate(User user)
 	{
 		Calendar cal = Calendar.getInstance();
 		if (user.getUdob() != null)

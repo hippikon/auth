@@ -92,3 +92,21 @@ insert into user_roles (	username,	roleid,	rolestartdate,	enabled )values ('m4',
 
 select username, role from roles,user_roles where username ='madhuri' and user_roles.roleid = roles.roleid;
 select username,password, enabled from users where username='madhuri';
+
+------------------
+create database karma;
+grant all on karma.* to 'madhuri'@'localhost';
+
+CREATE TABLE person (
+	person VARCHAR(20) NOT NULL primary key,
+	email varchar(25),
+	phone varchar(15)
+) character set utf8 collate utf8_bin;
+
+CREATE TABLE conversation (
+	id int(11) NOT NULL AUTO_INCREMENT primary key,
+	date VARCHAR(20) NOT NULL,
+	person varchar(20) not null,
+	details varchar(255) not null,
+	CONSTRAINT fk_username FOREIGN KEY (person) REFERENCES person (person)
+) character set utf8 collate utf8_bin;

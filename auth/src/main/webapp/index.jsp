@@ -4,10 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description" content="Sitemap page">
 <title>Auth - Sitemap</title>
 </head>
 <body>
+	<p align="center">
 	<jsp:include page="/digital/places/home.jsp" />
+	</p>
 	<h3 align="center">Sitemap</h3>
 	<table width="50%" align="center" border="1">
 		<tr>

@@ -183,7 +183,6 @@
 		   <version>4.3.5.Final</version>
 		   <scope>runtime</scope>
 		</dependency>
-		<!-- Spring Security -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
@@ -227,6 +226,11 @@
 		    <groupId>org.mockito</groupId>
 		    <artifactId>mockito-all</artifactId>
 		    <version>1.10.19</version>
+		</dependency>
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>4.12</version>
 		</dependency>
    	</dependencies>
 </project>

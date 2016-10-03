@@ -56,4 +56,10 @@ public class LoginRestService implements Links
 
 	}
 
+	// for 404 
+	@RequestMapping(value = "/404", method = RequestMethod.GET)
+	public String notFound()
+	{
+		return "404";
+	}
 }

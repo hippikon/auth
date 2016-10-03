@@ -20,7 +20,7 @@
 		}
 	</script>
 
-	<table width="100%" cellspacing="2" cellpadding="2">
+	<table width="100%" cellspacing="2" cellpadding="2" align="center">
 		<tr>
 			<td width="5%">&nbsp;</td>
 			<td>

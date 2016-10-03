@@ -6,6 +6,7 @@
 	
 		<classes>
 			<class name="digital.places.root.NLITest"/>
+			<!-- <class name="digital.places.root.LITest"/> -->
 		</classes>
 		
 	</test>

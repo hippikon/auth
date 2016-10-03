@@ -68,7 +68,7 @@
       	<res-auth>Container</res-auth>
   	</resource-ref>    
 	<!-- Spring Security -->
-	<filter>
+  	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
@@ -77,4 +77,10 @@
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+ <error-page>
+	<error-code>404</error-code>
+	<location>/o/404</location>
+  </error-page>
+
+
 </web-app>
