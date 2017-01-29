@@ -11,6 +11,11 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Auth - Search User</title>
 	<link href='<c:url value="/lib/main.css" />' rel="stylesheet"/>
+<!-- 
+	<link href = "<c:url value="/lib/jquery-ui.css" />" rel = "stylesheet">
+	<script src = "<c:url value="/lib/jquery-1.10.2.js" />"></script>
+	<script src = "<c:url value="/lib/jquery-ui.js" />"></script>
+-->
 </head>
 <body>
 	<jsp:include page="../home.jsp" />
