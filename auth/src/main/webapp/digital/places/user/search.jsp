@@ -28,7 +28,7 @@
 		<input type="submit"/>&nbsp;
 	</form:form>
 
-	<form:form method="get" id="roleForm" action="/auth/role/add">
+	<form:form method="get" id="roleForm" action="/role/add">
 		<c:forEach items="${searchUser}" var="item" varStatus="index">
 			 <input type="radio" id="${item.username}" onClick="document.getElementById('roleForm').action+='/${item.username}';document.getElementById('uname').value+='${item.username}';"/>&nbsp;
 		    ${item.username}
@@ -37,7 +37,7 @@
 
 		<input type="hidden" name="uname" id="uname" value=""/>
 		<input type="submit" value="Edit Roles"/> 
-		<input type="submit" value="Update User" onClick="document.getElementById('roleForm').action='/auth/user/update';" /> 
+		<input type="submit" value="Update User" onClick="document.getElementById('roleForm').action='/user/update';" /> 
 	</form:form>
 
 	<br/>

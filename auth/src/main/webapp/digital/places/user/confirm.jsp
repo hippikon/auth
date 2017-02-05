@@ -14,7 +14,7 @@
 	<table border="1" cellpadding="15" width="80%" align="center">
 	<tr>
 	<td>Auth - Confirm User Added<br/>
-	<form:form method="get" action="/auth/role/add/${uname}" >
+	<form:form method="get" action="/role/add/${uname}" >
 		${uname} added successfully
 		<input type="submit" value="Add Roles"/>
 

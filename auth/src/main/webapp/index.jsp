@@ -14,27 +14,18 @@
 	<h3 align="center">Sitemap</h3>
 	<table width="50%" align="center" border="1">
 		<tr>
-			<td align="center" >
-				Add user
-			</td>
-			<td>
-				<a href="http://localhost:8080/auth/user/add">http://localhost:8080/auth/user/add</a>
+			<td align="center">
+				<a href="http://localhost:8080/user/add">Add user</a>
 			</td>
 		</tr>
 		<tr>
-			<td align="center" >
-				Update user
-			</td>
-			<td>
-				<a href="http://localhost:8080/auth/user/update">http://localhost:8080/auth/user/update</a>
+			<td align="center">
+				<a href="http://localhost:8080/user/update">Update user</a>
 			</td>
 		</tr>
 		<tr>
-			<td align="center" >
-				Search for user
-			</td>
-			<td>
-				<a href="http://localhost:8080/auth/user/search">http://localhost:8080/auth/user/search</a>
+			<td align="center">
+				<a href="http://localhost:8080/user/search">Search for user</a>
 			</td>
 		</tr>
 	</table>
